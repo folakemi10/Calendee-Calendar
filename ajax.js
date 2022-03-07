@@ -1,3 +1,5 @@
+/**** Login, Register, Logout Ajax ***/
+
 //login ajax request
 document.getElementById("login_btn").addEventListener("click", loginAjax, false); // Bind the AJAX call to button click
 function loginAjax(event) {
