@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- importing Noto Sans font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+
+    <!-- Importing jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1>My Calendar</h1>
+
+    <!-- Login & Register-->
+    <div class="login">
+        <div>
+            <label> Username: <input type="text" name="username" id="username" /></label>
+            <label> Password: <input type="password" name="password" id="password" /></label>
+            <button id="login_btn">Log In</button>
+        </div>
+
+        <div>
+            <label> New Username: <input type="text" name="new_username" id="new_username" /></label>
+            <label> New Password: <input type="password" name="new_password" id="new_password" /></label>
+            <label> Confirm Password: <input type="password" name="confirm_password" id="confirm_password" /></label>
+            <button id="register_btn"> Sign Up </button>
+        </div>
+    </div>
+    <script type="text/javascript" src="ajax.js"></script> <!-- load the JavaScript file -->
+
+    <!-- Logout -->
+    <div>
+        <button id="logout_btn">Log Out</button>
+    </div>
+
+    <!-- Calendar Structure -->
+
+    <div class="current-month" id = "current-month"></div>
+    <input type="month" id="month-selector" />
+    <button type = "button" id = "prev_month_btn" class="btn btn-outline-secondary btn-sm"> Previous Month </button>
+    <button type = "button" id = "next_month_btn" class="btn btn-outline-secondary btn-sm"> Next Month </button>
+
+
+    
+
+</body>
+
+</html>
