@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title> Register </title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -55,28 +55,25 @@
     }
 
     //confirm there are no signup errors before entering into database
-    if (!empty($username_err)){
+    if (!empty($username_err)) {
         echo json_encode(array(
             "success" => false,
             "message" => $username_err
         ));
         exit;
-    }
-    else if(!empty($password_err)){
+    } else if (!empty($password_err)) {
         echo json_encode(array(
             "success" => false,
             "message" => $password_err
         ));
         exit;
-    }
-    else if(!empty($confirm_password_err)){
+    } else if (!empty($confirm_password_err)) {
         echo json_encode(array(
             "success" => false,
             "message" => $confirm_password_err
         ));
         exit;
-    }
-    else{
+    } else {
         //no errors, insert into database
 
         //hash password
