@@ -1,12 +1,10 @@
 /**** Calendar JS ***/
 
-$(".day_box").click(function(event) {
-    event.preventDefault();
-    $(this).hide("slow");
-});
-
 // For our purposes, we can keep the current month in a variable in the global scope
 var currentMonth = new Month(2022, 3); // March 2022
+
+var day_names = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+var month_names = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 // Change the month when the "next" button is pressed
 document.getElementById("next_month_btn").addEventListener("click", function(event) {
@@ -15,22 +13,50 @@ document.getElementById("next_month_btn").addEventListener("click", function(eve
     //alert("The new month is "+currentMonth.month+" "+currentMonth.year);
 }, false);
 
+// Change the month when the "prev" button is pressed
+document.getElementById("prev_month_btn").addEventListener("click", function(event) {
+    currentMonth = currentMonth.prevMonth(); // Previous month would be currentMonth.prevMonth()
+    updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
+    //alert("The new month is "+currentMonth.month+" "+currentMonth.year);
+}, false);
+
+//run update immediately to get current calendar
+updateCalendar();
 
 // This updateCalendar() function only alerts the dates in the currently specified month.  You need to write
 // it to modify the DOM (optionally using jQuery) to display the days and weeks in the current month.
 function updateCalendar() {
+    alert("in update calendar, current month: " + currentMonth.month);
+
+    //show current month and year at top of calendar
+    $('#month_year').empty();
+    $('#month_year').append(currentMonth.month + " ");
+    $('#month_year').append(currentMonth.year);
+
     var weeks = currentMonth.getWeeks();
 
     for (var w in weeks) {
         var days = weeks[w].getDates();
         // days contains normal JavaScript Date objects.
-        //alert("Week starting on " + days[0]);
+        //alert("Week starting on " + days[0].getMonth() + days[0].getDate());
 
         for (var d in days) {
             // You can see console.log() output in your JavaScript debugging tool, like Firebug,
             // WebWit Inspector, or Dragonfly.
-            console.log(days[d].toISOString());
+            //console.log(days[d].toISOString());
+
+            // create a new div element
+            const cell = document.createElement("td");
+            const date = document.createTextNode(days[d].getDate());
+
+            // add the text node to the newly created div
+            cell.appendChild(date);
+
+            // add the newly created element and its content into the DOM
+            const currentDiv = document.getElementById("div1");
+            document.body.insertBefore(newDiv, currentDiv);
         }
+        //table.appendChild(row);
     }
 }
 

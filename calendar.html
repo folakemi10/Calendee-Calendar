@@ -42,33 +42,30 @@
 
     <!-- Calendar Structure -->
 
-    <!-- Header: Month and Current Date, Month Navigation -->
-    <div class="current_month" id="current_month"></div>
-    <div class="current_date" id="current_date"></div>
 
-    <button type="button" id="prev_month_btn" class="btn"> Previous Month </button>
-    <button type="button" id="next_month_btn" class="btn"> Next Month </button>
-
-    <!-- Calendar Grid-->
-    <div class="calendar_grid">
-        <div class="days_week">
-            <div>SUN</div>
-            <div>MON</div>
-            <div>TUE</div>
-            <div>WED</div>
-            <div>THU</div>
-            <div>FRI</div>
-            <div>SAT</div>
-        </div>
-        <div class="days_month">
-            <div class="day_box"></div>
-            <div class="day_box"></div>
-            <div class="day_box"></div>
-            <div class="day_box"></div>
-            <div class="day_box"></div>
-            <div class="day_box"></div>
-        </div>
+    <!-- Header: Current Month and Year, Month Navigation -->
+    <div class="calendar_header">
+        <p id="month_year"> </p>
+        <button type="button" id="prev_month_btn" class="btn"> &#8249; </button>
+        <button type="button" id="next_month_btn" class="btn"> &#8250; </button>
     </div>
+
+    <!-- Calendar Grid -->
+    <table class="calendar" id="calendar">
+        <tr class="weekdays">
+            <th scope="col">Sunday</th>
+            <th scope="col">Monday</th>
+            <th scope="col">Tuesday</th>
+            <th scope="col">Wednesday</th>
+            <th scope="col">Thursday</th>
+            <th scope="col">Friday</th>
+            <th scope="col">Saturday</th>
+        </tr>
+
+        <thead id="calendar_head"></thead>
+        <tbody id="calendar_body"></tbody>
+        <div id="div1">The text above has been created dynamically.</div>
+    </table>
 
     <!-- Add Event On Date Click: Title, Start Date, End Date, Start Time, End Time 
     <div class="addEvent">
