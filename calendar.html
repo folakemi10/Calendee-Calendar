@@ -57,24 +57,32 @@
         <button type="button" id="next_month_btn" class="btn"> &#8250; </button>
     </div>
 
-    <!-- Calendar Grid -->
+    <!-- Calendar Grid: in part constructed with https://codepen.io/andyydna/pen/VwYRVQE as a reference -->
     <table class="calendar_table" id="table">
-        <thead id="days_header">
-            <th scope="col">Sunday</th>
-            <th scope="col">Monday</th>
-            <th scope="col">Tuesday</th>
-            <th scope="col">Wednesday</th>
-            <th scope="col">Thursday</th>
-            <th scope="col">Friday</th>
-            <th scope="col">Saturday</th>
+        <thead class="days_header" id="days_header">
+            <th scope="col">SUN</th>
+            <th scope="col">MON</th>
+            <th scope="col">TUE</th>
+            <th scope="col">WED</th>
+            <th scope="col">THU</th>
+            <th scope="col">FRI</th>
+            <th scope="col">SAT</th>
         </thead>
 
-        <tbody id="calendar_body"></tbody>
+        <tbody class="calendar_body" id="calendar_body"></tbody>
     </table>
 
-    <!-- Add Event Dialog: Title, Start Date, End Date, Start Time, End Time -->
+    <!-- Add Event Dialog: Title, Start Date, End Date, Start Time, End Time
+    completed with reference to: https://jqueryui.com/dialog/#modal-form -->
     <div id="add_event_dialog" title="Add Event">
-        Add event stuff here!
+        <form>
+            <fieldset>
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" class="text ui-widget-content ui-corner-all">
+                <!-- Allow form submission with keyboard without duplicating the dialog button -->
+                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </fieldset>
+        </form>
     </div>
 
 

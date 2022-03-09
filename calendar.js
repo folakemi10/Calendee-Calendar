@@ -1,4 +1,5 @@
 /**** Calendar JS ***/
+
 const current_date = new Date();
 let month = current_date.getMonth();
 let year = current_date.getFullYear();
@@ -35,6 +36,8 @@ document.getElementById("prev_month_btn").addEventListener("click", function(eve
 
 // This updateCalendar() function only alerts the dates in the currently specified month.  You need to write
 // it to modify the DOM (optionally using jQuery) to display the days and weeks in the current month.
+
+/*** Calendar Grid: in part constructed with https://codepen.io/andyydna/pen/VwYRVQE as a reference ***/
 function updateCalendar() {
     //alert("in update calendar, current month: " + currentMonth.month);
     let table = document.getElementById("calendar_body");
@@ -58,7 +61,7 @@ function updateCalendar() {
         for (var d in days) {
             // You can see console.log() output in your JavaScript debugging tool, like Firebug,
             // WebWit Inspector, or Dragonfly.
-            console.log(days[d].toISOString());
+            //console.log(days[d].toISOString());
             // create a new div element
             let cell = document.createElement("td");
             cell.setAttribute("id", days[d].toISOString());
@@ -190,5 +193,9 @@ function Month(year, month) {
 function openDialog() {
     $("tr#day_row td").click(function(event) {
         $("#add_event_dialog").dialog();
+
+        //get id of cell
+        let cell_id = $(this).attr('id');
     });
+
 }

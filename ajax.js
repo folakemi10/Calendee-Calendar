@@ -50,9 +50,7 @@ function logoutAjax(event) {
             headers: { 'content-type': 'application/json' }
         })
         .then(response => response.json())
-        .then(data => {
-            return update_appearance(data);
-        })
+        .then(data => console.log(data.success ? "You've been logged out!" : `You were not logged out ${data.message}`))
         .catch(error => console.error('Error:', error))
 
 }

@@ -3,16 +3,28 @@ body {
     font-family: 'Noto Sans', sans-serif;
 }
 
+.calendar_header {
+    margin: auto;
+    width: 50%;
+}
+
 .calendar_table {
-    border: 1px solid black;
+    table-layout: fixed;
     border-collapse: collapse;
     width: 100%;
 }
 
-.calendar_table td,
-.calendar_table th {
+.days_header th {
+    border: 1px solid #929292;
+    border-collapse: collapse;
+    padding: 10px;
+}
+
+.calendar_body td,
+.calendar_body th {
     padding: 5px;
-    border: 1px solid #e2e2e2;
+    padding-bottom: 80px;
+    border: 1px solid #929292;
     text-align: center;
     vertical-align: top;
 }
