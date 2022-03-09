@@ -1,7 +1,15 @@
 /**** Calendar JS ***/
+const current_date = new Date();
+let month = current_date.getMonth();
+let year = current_date.getFullYear();
+
+window.addEventListener('load', (event) => {
+    updateCalendar();
+    openDialog();
+});
 
 // For our purposes, we can keep the current month in a variable in the global scope
-var currentMonth = new Month(2022, 3); // March 2022
+var currentMonth = new Month(year, month); // March 2022
 
 var day_names = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 var month_names = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -10,6 +18,7 @@ var month_names = ["January", "February", "March", "April", "May", "June", "July
 document.getElementById("next_month_btn").addEventListener("click", function(event) {
     currentMonth = currentMonth.nextMonth(); // Previous month would be currentMonth.prevMonth()
     updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
+    openDialog(); //makes sure dialog box for events can still be opened
     //alert("The new month is "+currentMonth.month+" "+currentMonth.year);
 }, false);
 
@@ -17,20 +26,23 @@ document.getElementById("next_month_btn").addEventListener("click", function(eve
 document.getElementById("prev_month_btn").addEventListener("click", function(event) {
     currentMonth = currentMonth.prevMonth(); // Previous month would be currentMonth.prevMonth()
     updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
+    openDialog(); //makes sure dialog box for events can still be opened
     //alert("The new month is "+currentMonth.month+" "+currentMonth.year);
 }, false);
 
 //run update immediately to get current calendar
-updateCalendar();
+//updateCalendar();
 
 // This updateCalendar() function only alerts the dates in the currently specified month.  You need to write
 // it to modify the DOM (optionally using jQuery) to display the days and weeks in the current month.
 function updateCalendar() {
-    alert("in update calendar, current month: " + currentMonth.month);
+    //alert("in update calendar, current month: " + currentMonth.month);
+    let table = document.getElementById("calendar_body");
+    table.innerHTML = "";
 
     //show current month and year at top of calendar
     $('#month_year').empty();
-    $('#month_year').append(currentMonth.month + " ");
+    $('#month_year').append(month_names[currentMonth.month] + " ");
     $('#month_year').append(currentMonth.year);
 
     var weeks = currentMonth.getWeeks();
@@ -40,24 +52,26 @@ function updateCalendar() {
         // days contains normal JavaScript Date objects.
         //alert("Week starting on " + days[0].getMonth() + days[0].getDate());
 
+        let row = document.createElement("tr");
+        row.setAttribute("id", "day_row");
+        //console.log(row);
         for (var d in days) {
             // You can see console.log() output in your JavaScript debugging tool, like Firebug,
             // WebWit Inspector, or Dragonfly.
-            //console.log(days[d].toISOString());
-
+            console.log(days[d].toISOString());
             // create a new div element
-            const cell = document.createElement("td");
-            const date = document.createTextNode(days[d].getDate());
-
-            // add the text node to the newly created div
+            let cell = document.createElement("td");
+            cell.setAttribute("id", days[d].toISOString());
+            let date = document.createTextNode(days[d].getDate());
+            //console.log(date);
             cell.appendChild(date);
+            row.appendChild(cell);
 
-            // add the newly created element and its content into the DOM
-            const currentDiv = document.getElementById("div1");
-            document.body.insertBefore(newDiv, currentDiv);
         }
-        //table.appendChild(row);
+        //console.log(row);
+        table.appendChild(row);
     }
+    //console.log(table);
 }
 
 
@@ -169,4 +183,12 @@ function Month(year, month) {
 
         return weeks;
     };
+}
+
+
+//Open dialog
+function openDialog() {
+    $("tr#day_row td").click(function(event) {
+        $("#add_event_dialog").dialog();
+    });
 }

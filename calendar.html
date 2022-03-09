@@ -15,9 +15,16 @@
 
     <!-- Importing jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/start/jquery-ui.css" type="text/css" rel="Stylesheet" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script>
+
 </head>
 
 <body>
+
     <h1>My Calendar</h1>
     <!-- Login & Register-->
     <div>
@@ -51,8 +58,8 @@
     </div>
 
     <!-- Calendar Grid -->
-    <table class="calendar" id="calendar">
-        <tr class="weekdays">
+    <table class="calendar_table" id="table">
+        <thead id="days_header">
             <th scope="col">Sunday</th>
             <th scope="col">Monday</th>
             <th scope="col">Tuesday</th>
@@ -60,22 +67,16 @@
             <th scope="col">Thursday</th>
             <th scope="col">Friday</th>
             <th scope="col">Saturday</th>
-        </tr>
+        </thead>
 
-        <thead id="calendar_head"></thead>
         <tbody id="calendar_body"></tbody>
-        <div id="div1">The text above has been created dynamically.</div>
     </table>
 
-    <!-- Add Event On Date Click: Title, Start Date, End Date, Start Time, End Time 
-    <div class="addEvent">
-        <div>
-            <input type="text" id="event_title" placeholder="Add title" />
-            <input type="time" id="time" placeholder="Add time" />
-            <button id="submitEvent">Save</button>
-        </div>
+    <!-- Add Event Dialog: Title, Start Date, End Date, Start Time, End Time -->
+    <div id="add_event_dialog" title="Add Event">
+        Add event stuff here!
     </div>
-    -->
+
 
     <!-- Edit or Delete Event on Event Click: Title, Start Date, End Date, Start Time, End Time 
     <div>
@@ -88,6 +89,7 @@
     <script type="text/javascript" src="ajax.js"></script>
     <script type="text/javascript" src="calendar.js"></script>
     <!-- load the JavaScript file -->
+
 </body>
 
 </html>
