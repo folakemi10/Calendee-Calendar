@@ -12,16 +12,7 @@
             PRIMARY KEY (id, username)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-        CREATE TABLE events (
-            id int(11) NOT NULL,
-            event_id NOT NULL AUTO_INCREMENT,
-            title varchar(1023) NOT NULL,
-            startdate NOT NULL,
-            enddate NOT NULL,
-            starttime NOT NULL,
-            endtime NOT NULL,
-            PRIMARY KEY (event_id)
-        )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        
     */
 
 

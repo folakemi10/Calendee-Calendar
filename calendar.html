@@ -14,27 +14,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
 
     <!-- Importing jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-
-    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/start/jquery-ui.css" type="text/css" rel="Stylesheet" />
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
 </head>
 
 <body>
-
-    <h1>My Calendar</h1>
     <!-- Login & Register-->
     <div>
-        <div>
+        <div id="login">
+            <h2>Login</h2>
             <label> Username: <input type="text" name="username" id="username" /></label>
             <label> Password: <input type="password" name="password" id="password" /></label>
             <button id="login_btn">Log In</button>
         </div>
 
-        <div>
+        <div id="signup">
+            <h2>Register</h2>
             <label> New Username: <input type="text" name="new_username" id="new_username" /></label>
             <label> New Password: <input type="password" name="new_password" id="new_password" /></label>
             <label> Confirm Password: <input type="password" name="confirm_password" id="confirm_password" /></label>
@@ -48,8 +44,7 @@
     </div>
 
     <!-- Calendar Structure -->
-
-
+    <h1 id="calendar_user"></h1>
     <!-- Header: Current Month and Year, Month Navigation -->
     <div class="calendar_header">
         <p id="month_year"> </p>
@@ -58,7 +53,7 @@
     </div>
 
     <!-- Calendar Grid: in part constructed with https://codepen.io/andyydna/pen/VwYRVQE as a reference -->
-    <table class="calendar_table" id="table">
+    <table class="calendar_table" id="calendar_table">
         <thead class="days_header" id="days_header">
             <th scope="col">SUN</th>
             <th scope="col">MON</th>
@@ -77,10 +72,24 @@
     <div id="add_event_dialog" title="Add Event">
         <form>
             <fieldset>
-                <label for="title">Title</label>
-                <input type="text" name="title" id="title" class="text ui-widget-content ui-corner-all">
-                <!-- Allow form submission with keyboard without duplicating the dialog button -->
-                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+                <div class="eventdate"> </div>
+
+                <input type="text" name="title" id="title" class="dialog" placeholder="Add title">
+
+                <div class="time_inputs">
+                    <label for="starttime">Start Time:</label>
+                    <input type="time" name="starttime" id="starttime"><br>
+                    <label for="endtime">End Time:</label>
+                    <input type="time" name="endtime" id="endtime">
+                </div>
+
+                <div class="priority_buttons">
+                    <label for="priority">Select Priority: </label> <br>
+                    <label><input type="radio" name="high" class="priority">High</label>
+                    <label><input type="radio" name="urgent" class="priority">Urgent</label>
+                    <label><input type="radio" name="medium" class="priority">Medium</label>
+                    <label><input type="radio" name="low" class="priority">Low</label>
+                </div>
             </fieldset>
         </form>
     </div>

@@ -7,7 +7,7 @@ function loginAjax(event) {
     const password = document.getElementById("password").value; // Get the password from the form
 
     // Make a URL-encoded string for passing POST data:
-    const data = { 'username': username, 'password': password };
+    const data = { 'username': username, 'password': password, 'token': token };
 
     fetch("login.php", {
             method: 'POST',
@@ -17,6 +17,13 @@ function loginAjax(event) {
         .then(response => response.json())
         .then(data => console.log(data.success ? "You've been logged in!" : `You were not logged in ${data.message}`))
         .catch(err => console.error(err));
+
+    //hide login panel
+
+    //show user's events
+
+    //add user's name to top of calendar
+    document.getElementById("calendar_user").innerHTML = data.username + "'s Calendar";
 }
 
 //register ajax request
@@ -35,7 +42,7 @@ function registerAjax(event) {
             headers: { 'content-type': 'application/json' }
         })
         .then(response => response.json())
-        .then(data => console.log(data.success ? "You've been registered!" : `You were not logged in ${data.message}`))
+        .then(data => console.log(data.success ? "You've been registered!" : `You were not registered ${data.message}`))
         .catch(err => console.error(err));
 }
 
@@ -52,5 +59,10 @@ function logoutAjax(event) {
         .then(response => response.json())
         .then(data => console.log(data.success ? "You've been logged out!" : `You were not logged out ${data.message}`))
         .catch(error => console.error('Error:', error))
+        //remove user's name from top of calendar
+    document.getElementById("calendar_user").innerHTML = '';
 
+    //show login panel
+
+    //hide user's events
 }

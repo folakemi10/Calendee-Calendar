@@ -1,13 +1,8 @@
 /**** Calendar JS ***/
-
 const current_date = new Date();
 let month = current_date.getMonth();
 let year = current_date.getFullYear();
-
-window.addEventListener('load', (event) => {
-    updateCalendar();
-    openDialog();
-});
+let day = current_date.getDate();
 
 // For our purposes, we can keep the current month in a variable in the global scope
 var currentMonth = new Month(year, month); // March 2022
@@ -15,11 +10,14 @@ var currentMonth = new Month(year, month); // March 2022
 var day_names = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 var month_names = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
+window.onload = function() {
+    updateCalendar();
+};
+
 // Change the month when the "next" button is pressed
 document.getElementById("next_month_btn").addEventListener("click", function(event) {
     currentMonth = currentMonth.nextMonth(); // Previous month would be currentMonth.prevMonth()
     updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
-    openDialog(); //makes sure dialog box for events can still be opened
     //alert("The new month is "+currentMonth.month+" "+currentMonth.year);
 }, false);
 
@@ -27,12 +25,9 @@ document.getElementById("next_month_btn").addEventListener("click", function(eve
 document.getElementById("prev_month_btn").addEventListener("click", function(event) {
     currentMonth = currentMonth.prevMonth(); // Previous month would be currentMonth.prevMonth()
     updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
-    openDialog(); //makes sure dialog box for events can still be opened
     //alert("The new month is "+currentMonth.month+" "+currentMonth.year);
 }, false);
 
-//run update immediately to get current calendar
-//updateCalendar();
 
 // This updateCalendar() function only alerts the dates in the currently specified month.  You need to write
 // it to modify the DOM (optionally using jQuery) to display the days and weeks in the current month.
@@ -53,8 +48,6 @@ function updateCalendar() {
     for (var w in weeks) {
         var days = weeks[w].getDates();
         // days contains normal JavaScript Date objects.
-        //alert("Week starting on " + days[0].getMonth() + days[0].getDate());
-
         let row = document.createElement("tr");
         row.setAttribute("id", "day_row");
         //console.log(row);
@@ -64,7 +57,8 @@ function updateCalendar() {
             //console.log(days[d].toISOString());
             // create a new div element
             let cell = document.createElement("td");
-            cell.setAttribute("id", days[d].toISOString());
+            cell_id = (days[d].getMonth() + 1) + "_" + days[d].getDate() + "_" + (days[d].getYear() - 100);
+            cell.setAttribute("id", cell_id);
             let date = document.createTextNode(days[d].getDate());
             //console.log(date);
             cell.appendChild(date);
@@ -74,6 +68,7 @@ function updateCalendar() {
         //console.log(row);
         table.appendChild(row);
     }
+    openDialog();
     //console.log(table);
 }
 
@@ -188,14 +183,69 @@ function Month(year, month) {
     };
 }
 
-
-//Open dialog
+//Written with help of official JQuery UI documentation: https://jqueryui.com/dialog/#modal-form
 function openDialog() {
-    $("tr#day_row td").click(function(event) {
-        $("#add_event_dialog").dialog();
+    let dialog, form,
+        title = $("#title"),
+        starttime = $("#starttime"),
+        endtime = $("#endtime"),
+        tag = $(".priority:checked").val();
+    //date = $("#eventdate"),
+    allFields = $([]).add(title).add(starttime).add(endtime);
 
-        //get id of cell
-        let cell_id = $(this).attr('id');
+    //insert into database
+    function insertEvent() {
+        //use ajax to post event data to addevent.php
+        $.ajax({
+            type: 'POST',
+            url: 'addevent.php',
+            data: { username: username, title: title, },
+            success: function(response) {
+                $('#result').html(response);
+            }
+        });
+    }
+
+    dialog = $("#add_event_dialog").dialog({
+        autoOpen: false,
+        height: 400,
+        width: 400,
+        modal: true,
+        buttons: {
+            "Save": addEvent,
+            Cancel: function() {
+                dialog.dialog("close");
+            }
+        },
+        close: function() {
+            form[0].reset();
+            allFields.removeClass("ui-state-error");
+        }
     });
 
+
+    form = dialog.find("form").on("submit", function(event) {
+        event.preventDefault();
+        addEvent();
+        insertEvent();
+    });
+
+
+    $("#day_row td").click(function() {
+        console.log("clicked");
+        //insert cell_id into modal
+        let date = $(this).attr('id');
+        $("div.eventdate").text(date);
+
+        //open dialog
+        dialog.dialog('open');
+    });
+}
+
+function openEvent() {
+    //pop up modal for viewing, modifying, and deleting when clicked on an event:
+    $(".event_box").click(function(event) {
+        //open event dialog with information for editing or deleting
+
+    });
 }
