@@ -23,19 +23,6 @@ $stmt->execute();
 $stmt->bind_result($cnt, $username, $pwd_hash);
 $stmt->fetch();
 
-/*
-CREATE TABLE events (
-  event_id NOT NULL AUTO_INCREMENT,
-  username varchar(50) NOT NULL,
-  title varchar(1023) NOT NULL,
-  starttime varchar() NOT NULL,
-  endtime NOT NULL,
-  tag NOT NULL,
-  shared NOT NULL,
-  PRIMARY KEY (event_id)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
-*/
-
 //Accessing Variables
 $username = $_SESSION['username'];
 $title = $json_obj['title'];

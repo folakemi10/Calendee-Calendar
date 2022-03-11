@@ -184,8 +184,6 @@ function Month(year, month) {
 
 //Written with help of official JQuery UI documentation: https://jqueryui.com/dialog/#modal-form
 function openDialog() {
-    //updateCalendar();
-
     let dialog, form,
         title = $("#title"),
         starttime = $("#starttime"),
@@ -199,12 +197,7 @@ function openDialog() {
         allFields.removeClass("ui-state-error");
         //display in calendar
         if (valid) {
-            $("#calendar_body").append("<tr>" +
-                "<td>" + title.val() + "</td>" +
-                "<td>" + starttime.val() + "</td>" +
-                "<td>" + endtime.val() + "</td>" +
-                "<td>" + tag + "</td>" +
-                "</tr>");
+
             dialog.dialog("close");
         }
         return valid;
