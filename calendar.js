@@ -13,7 +13,6 @@ var month_names = ["January", "February", "March", "April", "May", "June", "July
 window.onload = function() {
     updateCalendar();
 };
-
 // Change the month when the "next" button is pressed
 document.getElementById("next_month_btn").addEventListener("click", function(event) {
     currentMonth = currentMonth.nextMonth(); // Previous month would be currentMonth.prevMonth()
@@ -185,6 +184,8 @@ function Month(year, month) {
 
 //Written with help of official JQuery UI documentation: https://jqueryui.com/dialog/#modal-form
 function openDialog() {
+    //updateCalendar();
+
     let dialog, form,
         title = $("#title"),
         starttime = $("#starttime"),
@@ -193,18 +194,22 @@ function openDialog() {
     //date = $("#eventdate"),
     allFields = $([]).add(title).add(starttime).add(endtime);
 
-    //insert into database
-    function insertEvent() {
-        //use ajax to post event data to addevent.php
-        $.ajax({
-            type: 'POST',
-            url: 'addevent.php',
-            data: { username: username, title: title, },
-            success: function(response) {
-                $('#result').html(response);
-            }
-        });
+    function addEvent() {
+        let valid = true;
+        allFields.removeClass("ui-state-error");
+        //display in calendar
+        if (valid) {
+            $("#calendar_body").append("<tr>" +
+                "<td>" + title.val() + "</td>" +
+                "<td>" + starttime.val() + "</td>" +
+                "<td>" + endtime.val() + "</td>" +
+                "<td>" + tag + "</td>" +
+                "</tr>");
+            dialog.dialog("close");
+        }
+        return valid;
     }
+
 
     dialog = $("#add_event_dialog").dialog({
         autoOpen: false,
@@ -227,7 +232,6 @@ function openDialog() {
     form = dialog.find("form").on("submit", function(event) {
         event.preventDefault();
         addEvent();
-        insertEvent();
     });
 
 
@@ -239,13 +243,5 @@ function openDialog() {
 
         //open dialog
         dialog.dialog('open');
-    });
-}
-
-function openEvent() {
-    //pop up modal for viewing, modifying, and deleting when clicked on an event:
-    $(".event_box").click(function(event) {
-        //open event dialog with information for editing or deleting
-
     });
 }
