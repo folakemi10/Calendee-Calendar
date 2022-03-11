@@ -1,16 +1,22 @@
 <?php
 require 'connectdatabase.php';
+
 ini_set("session.cookie_httponly", 1);
+session_start();
 
 header("Content-Type: application/json");
 
-$json_str = file_get_contents('php://input');
-$json_obj = json_decode($json_str, true);
-
 //Variables can be accessed as such:
-$username = $json_obj['username'];
-$password = $json_obj['password'];
+$username = $_SESSION('username');
+$title = $_POST['title'];
+$starttime = $_POST['starttime'];
+$endtime = $_POST['endtime'];
+$tag = $_POST['tag'];
+echo json_encode(array(
+  "success" => true,
+));
 
+/*
 $stmt = $mysqli->prepare("SELECT COUNT(*), username, password FROM users WHERE username=?");
 if (!$stmt) {
     printf("Query Prep Failed: %s\n", $mysqli->error);
@@ -43,5 +49,5 @@ if(!$stmt){
 $to_insert->bind_param('', );
 $to_insert->execute();
 $to_insert->close();
-
+*/
 ?>

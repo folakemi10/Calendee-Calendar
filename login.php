@@ -1,6 +1,9 @@
 <?php
 require 'connectdatabase.php';
 
+ini_set("session.cookie_httponly", 1);
+session_start();
+
 header("Content-Type: application/json");
 
 $json_str = file_get_contents('php://input');
@@ -44,4 +47,4 @@ if ($cnt == 1 && password_verify($password, $pwd_hash)) {
     echo "login failed";
     exit;
 }
-?>F
+?>

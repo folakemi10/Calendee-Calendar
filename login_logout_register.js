@@ -7,7 +7,7 @@ function loginAjax(event) {
     const password = document.getElementById("password").value; // Get the password from the form
 
     // Make a URL-encoded string for passing POST data:
-    const data = { 'username': username, 'password': password, 'token': token };
+    const data = { 'username': username, 'password': password };
 
     fetch("login.php", {
             method: 'POST',
@@ -16,6 +16,9 @@ function loginAjax(event) {
         })
         .then(response => response.json())
         .then(data => console.log(data.success ? "You've been logged in!" : `You were not logged in ${data.message}`))
+        .then(
+            console.log(data.username, data.password)
+        )
         .catch(err => console.error(err));
 
     //hide login panel

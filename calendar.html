@@ -17,7 +17,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
-    <script src="deselectable-radio-buttons.js"></script>
 
 </head>
 
@@ -45,8 +44,10 @@
         <button id="logout_btn">Log Out</button>
     </div>
 
+    <div id="result"> </div>
+
     <!-- Calendar Structure -->
-    <h1 id="calendar_user"></h1>
+    <p id="calendar_user"></p>
     <!-- Header: Current Month and Year, Month Navigation -->
     <div class="calendar_header">
         <p id="month_year"> </p>
@@ -57,13 +58,15 @@
     <!-- Calendar Grid: in part constructed with https://codepen.io/andyydna/pen/VwYRVQE as a reference -->
     <table class="calendar_table" id="calendar_table">
         <thead class="days_header" id="days_header">
-            <th scope="col">SUN</th>
-            <th scope="col">MON</th>
-            <th scope="col">TUE</th>
-            <th scope="col">WED</th>
-            <th scope="col">THU</th>
-            <th scope="col">FRI</th>
-            <th scope="col">SAT</th>
+            <tr>
+                <th scope="col">SUN</th>
+                <th scope="col">MON</th>
+                <th scope="col">TUE</th>
+                <th scope="col">WED</th>
+                <th scope="col">THU</th>
+                <th scope="col">FRI</th>
+                <th scope="col">SAT</th>
+            </tr>
         </thead>
 
         <tbody class="calendar_body" id="calendar_body"></tbody>
@@ -72,11 +75,12 @@
     <!-- Add Event Dialog: Title, Start Date, End Date, Start Time, End Time
     completed with reference to: https://jqueryui.com/dialog/#modal-form -->
     <div id="add_event_dialog" title="Add Event">
-        <form>
+        <form id="dialog_form">
             <fieldset>
-                <div class="eventdate"> </div>
+                <div id="event_date" class="event_date"> </div>
+                <div id="hidden_event_id" class="hidden_event_id"> </div>
 
-                <input type="text" name="title" id="title" class="dialog" placeholder="Add title">
+                <input type="text" id="event_title" class="event_title" placeholder="Add title">
 
                 <div class="time_inputs">
                     <label for="starttime">Start Time:</label>
@@ -86,11 +90,13 @@
                 </div>
 
                 <div class="priority_buttons">
-                    <label for="priority">Select Priority: </label> <br>
-                    <label><input type="radio" name="priority_buttons" class="priority">High</label>
-                    <label><input type="radio" name="priority_buttons" class="priority">Urgent</label>
-                    <label><input type="radio" name="priority_buttons" class="priority">Medium</label>
-                    <label><input type="radio" name="priority_buttons" class="priority">Low</label>
+                    <label>Select Priority: </label> <br>
+                    <label><input type="radio" name="priority" id="high" value="high">High</label>
+                    <label><input type="radio" name="priority" id="medium" value="medium">Medium</label>
+                    <label><input type="radio" name="priority" id="low" value="low">Low</label>
+                    <button type="button" class="clear_tag">
+                        Clear Tag
+                    </button>
                 </div>
             </fieldset>
         </form>
@@ -105,8 +111,8 @@
         <button id="submitEvent">Delete</button>
     </div>
 -->
-    <script type="text/javascript" src="ajax.js"></script>
-    <script type="text/javascript" src="calendar.js"></script>
+    <script src="login_logout_register.js"></script>
+    <script src="calendar.js"></script>
     <!-- load the JavaScript file -->
 
 </body>

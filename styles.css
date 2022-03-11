@@ -45,3 +45,7 @@ h1 {
     font-size: 1.2em;
     margin: .6em 0;
 }
+
+div.hidden_event_id {
+    display: none;
+}

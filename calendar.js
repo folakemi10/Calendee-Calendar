@@ -51,24 +51,26 @@ function updateCalendar() {
         row.setAttribute("id", "day_row");
         //console.log(row);
         for (var d in days) {
-            // You can see console.log() output in your JavaScript debugging tool, like Firebug,
-            // WebWit Inspector, or Dragonfly.
-            //console.log(days[d].toISOString());
+
+            month_int = days[d].getMonth();
+            date_int = days[d].getDate();
+            year_int = days[d].getFullYear();
+
+
             // create a new div element
             let cell = document.createElement("td");
-            cell_id = (days[d].getMonth() + 1) + "_" + days[d].getDate() + "_" + (days[d].getYear() - 100);
+            cell_id = month_int + "_" + date_int + "_" + year_int;
             cell.setAttribute("id", cell_id);
+            cell.setAttribute("class", "day_cell");
             let date = document.createTextNode(days[d].getDate());
-            //console.log(date);
             cell.appendChild(date);
             row.appendChild(cell);
 
         }
-        //console.log(row);
         table.appendChild(row);
     }
+
     openDialog();
-    //console.log(table);
 }
 
 
@@ -185,23 +187,38 @@ function Month(year, month) {
 //Written with help of official JQuery UI documentation: https://jqueryui.com/dialog/#modal-form
 function openDialog() {
     let dialog, form,
-        title = $("#title"),
+        title = $("#event_title"),
         starttime = $("#starttime"),
         endtime = $("#endtime"),
-        tag = $(".priority:checked").val();
-    //date = $("#eventdate"),
-    allFields = $([]).add(title).add(starttime).add(endtime);
+
+        allFields = $([]).add(title).add(starttime).add(endtime);
+
+    //offer option to clear priority tags
+    $(".clear_tag").click(function() {
+        $("#high").prop("checked", false);
+        $("#medium").prop("checked", false);
+        $("#low").prop("checked", false);
+    });
 
     function addEvent() {
         let valid = true;
         allFields.removeClass("ui-state-error");
         //display in calendar
-        if (valid) {
+        console.log(document.getElementById('event_date').innerHTML);
+        //hidden event id is to make it easier to pass over month, day, and year values into database
+        console.log(document.getElementById('hidden_event_id').innerHTML);
+        console.log(title.val());
+        console.log(starttime.val());
+        console.log(endtime.val());
+        console.log($("input[type='radio']:checked").val());
 
-            dialog.dialog("close");
-        }
+        //connect to php and send variables
+
+
+        dialog.dialog("close");
         return valid;
     }
+
 
 
     dialog = $("#add_event_dialog").dialog({
@@ -229,12 +246,15 @@ function openDialog() {
 
 
     $("#day_row td").click(function() {
-        console.log("clicked");
-        //insert cell_id into modal
-        let date = $(this).attr('id');
-        $("div.eventdate").text(date);
+        //get current date from cell id and open dialog
+        let cell_id = $(this).attr("id");
+        const re = /(\d{1,2})_(\d{1,2})_(\d{4})/;
+        let match = re.exec(cell_id);
+        let full_date = month_names[match[1]] + " " + match[2] + ", " + match[3];
+        document.getElementById('hidden_event_id').innerHTML = cell_id;
+        document.getElementById('event_date').innerHTML = full_date;
 
-        //open dialog
+
         dialog.dialog('open');
     });
 }
