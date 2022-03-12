@@ -26,25 +26,23 @@ $stmt->bind_result($cnt, $username, $pwd_hash);
 $stmt->fetch();
 
 if ($cnt == 1 && password_verify($password, $pwd_hash)) {
-
-    ini_set("session.cookie_httponly", 1);
-    session_start();
     $_SESSION['username'] = $username;
     $_SESSION['token'] = bin2hex(openssl_random_pseudo_bytes(32));
 
     echo json_encode(array(
         "success" => true,
-        "token" =>  $_SESSION['token'],
-        "username"  => $username
+        "username" => $_SESSION['username'],
+        "token" => $_SESSION['token'],
+        "message" => "Login Successful"
     ));
     exit;
 } else {
     echo json_encode(array(
         "success" => false,
+        "username" => "undefined_username",
+        "token" => "undefined_token",
         "message" => "Incorrect Username or Password"
     ));
-
-    echo "login failed";
     exit;
 }
 ?>

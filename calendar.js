@@ -1,4 +1,41 @@
 /**** Calendar JS ***/
+
+let logged_in = false;
+//keep user logged in after refresh
+fetch("check_logged_in.php", {
+        method: 'POST',
+        body: JSON.stringify(),
+        headers: { 'content-type': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(data => is_loggedin(data))
+    .catch(error => console.error('Error:', error));
+
+function is_loggedin(data) {
+    if (data.success) {
+        console.log("logged in");
+        logged_in = true;
+        //hide login & register panel
+        document.getElementById("login").style.display = "none";
+        document.getElementById("register").style.display = "none";
+
+        //display logout button
+        document.getElementById("logout_btn").style.display = "block";
+
+        document.getElementById("calendar_user").innerHTML = data.username + "'s Calendar";
+    } else {
+        console.log("not logged in");
+        logged_in = false;
+        //display login and register panel
+        document.getElementById("login").style.display = "block";
+        document.getElementById("register").style.display = "block";
+
+        //hide logout button
+        document.getElementById("logout_btn").style.display = "none";
+    }
+}
+
+//get current date
 const current_date = new Date();
 let month = current_date.getMonth();
 let year = current_date.getFullYear();
@@ -49,7 +86,6 @@ function updateCalendar() {
         // days contains normal JavaScript Date objects.
         let row = document.createElement("tr");
         row.setAttribute("id", "day_row");
-        //console.log(row);
         for (var d in days) {
 
             month_int = days[d].getMonth();
@@ -69,7 +105,7 @@ function updateCalendar() {
         }
         table.appendChild(row);
     }
-
+    //disable calendar clicks if user is not logged in
     openDialog();
 }
 
@@ -190,7 +226,6 @@ function openDialog() {
         title = $("#event_title"),
         starttime = $("#starttime"),
         endtime = $("#endtime"),
-
         allFields = $([]).add(title).add(starttime).add(endtime);
 
     //offer option to clear priority tags
@@ -200,26 +235,48 @@ function openDialog() {
         $("#low").prop("checked", false);
     });
 
+
+
     function addEvent() {
         let valid = true;
         allFields.removeClass("ui-state-error");
-        //display in calendar
-        console.log(document.getElementById('event_date').innerHTML);
+
+        //console.log(document.getElementById('event_date').innerHTML);
         //hidden event id is to make it easier to pass over month, day, and year values into database
-        console.log(document.getElementById('hidden_event_id').innerHTML);
-        console.log(title.val());
-        console.log(starttime.val());
-        console.log(endtime.val());
-        console.log($("input[type='radio']:checked").val());
+        //console.log(document.getElementById('hidden_event_id').innerHTML);
+        //console.log(title.val());
+        //console.log(starttime.val());
+        //console.log(endtime.val());
+        //console.log($("input[type='radio']:checked").val());
+
+        //make variables for passing data
+        let hidden_event_date = document.getElementById('hidden_event_date').innerHTML;
+        let checked_tag = $("input[type='radio']:checked").val();
 
         //connect to php and send variables
+        const data = {
+            'add_event_date': hidden_event_date, //string for event_date in MM_DD_YYYY format
+            'add_title': title.val(), //string for event name
+            'add_starttime': starttime.val(), //string for start time
+            'add_endtime': endtime.val(), //string for end time
+            'add_tag': checked_tag, //string for which priority is checked
+            'token': csrf_token //csrf token
+        };
 
+        fetch("addevent.php", {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: { 'content-type': 'application/json' }
+            })
+            .then(response => response.json())
+            .then(function(data) {
+                console.log(data.message);
+            })
+            .catch(err => console.error(err));
 
         dialog.dialog("close");
         return valid;
     }
-
-
 
     dialog = $("#add_event_dialog").dialog({
         autoOpen: false,
@@ -245,13 +302,13 @@ function openDialog() {
     });
 
 
-    $("#day_row td").click(function() {
+    $("#day_row td").on("click", function() {
         //get current date from cell id and open dialog
         let cell_id = $(this).attr("id");
         const re = /(\d{1,2})_(\d{1,2})_(\d{4})/;
         let match = re.exec(cell_id);
         let full_date = month_names[match[1]] + " " + match[2] + ", " + match[3];
-        document.getElementById('hidden_event_id').innerHTML = cell_id;
+        document.getElementById('hidden_event_date').innerHTML = cell_id;
         document.getElementById('event_date').innerHTML = full_date;
 
 

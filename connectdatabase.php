@@ -14,14 +14,15 @@
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
         CREATE TABLE events (
-            event_id int(11) NOT NULL AUTO_INCREMENT,
+            eventid int(11) NOT NULL AUTO_INCREMENT,
+            eventdate VARCHAR(12) NOT NULL,
             username VARCHAR(50) NOT NULL,
             title VARCHAR(1023) NOT NULL,
             starttime VARCHAR(5) NOT NULL,
             endtime VARCHAR(5) NOT NULL,
             tag VARCHAR(10) NOT NULL,
             group_share TEXT NOT NULL,
-            PRIMARY KEY (event_id)
+            PRIMARY KEY (eventid)
         )ENGINE=InnoDB DEFAULT CHARSET=utf8;
         
     */

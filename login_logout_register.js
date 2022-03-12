@@ -1,5 +1,7 @@
 /**** Login, Register, Logout Ajax ***/
 
+let csrf_token = '';
+
 //login ajax request
 document.getElementById("login_btn").addEventListener("click", loginAjax, false); // Bind the AJAX call to button click
 function loginAjax(event) {
@@ -15,18 +17,32 @@ function loginAjax(event) {
             headers: { 'content-type': 'application/json' }
         })
         .then(response => response.json())
-        .then(data => console.log(data.success ? "You've been logged in!" : `You were not logged in ${data.message}`))
-        .then(
-            console.log(data.username, data.password)
-        )
+        .then(function(data) {
+            if (data.success) {
+                //store csrf token in global variable to use in calendar.js
+                csrf_token = data.token;
+                //hide login & register panel
+                document.getElementById("login").style.display = "none";
+                document.getElementById("register").style.display = "none";
+                //display logout button
+                document.getElementById("logout_btn").style.display = "block";
+
+                //clear any login and register error displays
+                document.getElementById("login_alerts").innerHTML = "";
+                document.getElementById("register_alerts").innerHTML = "";
+
+                //add user's name to top of calendar
+                document.getElementById("calendar_user").innerHTML = data.username + "'s Calendar";
+            } else {
+                //display the login error in html
+                document.getElementById("login_alerts").innerHTML = data.message;
+            }
+        })
         .catch(err => console.error(err));
 
-    //hide login panel
-
-    //show user's events
-
-    //add user's name to top of calendar
-    document.getElementById("calendar_user").innerHTML = data.username + "'s Calendar";
+    //clear input fields
+    document.getElementById("username").value = "";
+    document.getElementById("password").value = "";
 }
 
 //register ajax request
@@ -45,8 +61,22 @@ function registerAjax(event) {
             headers: { 'content-type': 'application/json' }
         })
         .then(response => response.json())
-        .then(data => console.log(data.success ? "You've been registered!" : `You were not registered ${data.message}`))
+        .then(function(data) {
+            if (data.success) {
+                //hide register panel
+                document.getElementById("register").style.display = "none";
+                document.getElementById("register_alerts").innerHTML = "Successful Register! Please log in.";
+            } else {
+                document.getElementById("register_alerts").innerHTML = data.message;
+            }
+        })
         .catch(err => console.error(err));
+
+    //clear input fields
+    document.getElementById("new_username").value = "";
+    document.getElementById("new_password").value = "";
+    document.getElementById("confirm_password").value = "";
+    document.getElementById("register_alerts").innerHTML = "";
 }
 
 
@@ -62,10 +92,13 @@ function logoutAjax(event) {
         .then(response => response.json())
         .then(data => console.log(data.success ? "You've been logged out!" : `You were not logged out ${data.message}`))
         .catch(error => console.error('Error:', error))
-        //remove user's name from top of calendar
+
+    //display login and register panel
+    document.getElementById("login").style.display = "block";
+    document.getElementById("register").style.display = "block";
+    //hide logout button
+    document.getElementById("logout_btn").style.display = "none";
+
+    //remove user's name from top of calendar
     document.getElementById("calendar_user").innerHTML = '';
-
-    //show login panel
-
-    //hide user's events
 }
