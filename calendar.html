@@ -100,19 +100,31 @@
                         Clear Tag
                     </button>
                 </div>
+
+                <div class="group_share">
+                    <p>Type who you would like to share this event with, and it will appear on both your calendars: </p>
+                    <p>Share with: </p>
+                    <input type="text" name="group_share" id="share1">
+                    <input type="text" name="group_share" id="share2">
+                    <input type="text" name="group_share" id="share3">
+                </div>
+
+                <div id="form_alerts"></div>
             </fieldset>
         </form>
     </div>
 
 
-    <!-- Edit or Delete Event on Event Click: Title, Start Date, End Date, Start Time, End Time 
-    <div>
-        <input type="text" id="event_title" placeholder="Change title" />
-        <input type="time" id="time" placeholder="Change time" />
-        <button id="submitEvent">Edit</button>
-        <button id="submitEvent">Delete</button>
+    <!-- Edit or Delete Event on Event Click: Title, Start Date, End Date, Start Time, End Time -->
+    <div id="edit_event_dialog" title="Edit Event">
+        <form id="edit_dialog_form">
+            <fieldset>
+
+            </fieldset>
+        </form>
     </div>
--->
+
+
     <script src="calendar.js"></script>
     <script src="login_logout_register.js"></script>
     <!-- load the JavaScript file -->

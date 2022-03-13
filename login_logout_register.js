@@ -1,6 +1,18 @@
 /**** Login, Register, Logout Ajax ***/
 
-let csrf_token = '';
+let csrf_token = "";
+//need to fetch csrf token with php to prevent it from being lost upon refresh
+fetch("csrf.php", {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(data => setToken(data.token))
+    .catch(error => console.error('Error:', error));
+
+function setToken(token) {
+    csrf_token = token;
+}
 
 //login ajax request
 document.getElementById("login_btn").addEventListener("click", loginAjax, false); // Bind the AJAX call to button click
@@ -19,7 +31,6 @@ function loginAjax(event) {
         .then(response => response.json())
         .then(function(data) {
             if (data.success) {
-                //store csrf token in global variable to use in calendar.js
                 csrf_token = data.token;
                 //hide login & register panel
                 document.getElementById("login").style.display = "none";
@@ -33,6 +44,7 @@ function loginAjax(event) {
 
                 //add user's name to top of calendar
                 document.getElementById("calendar_user").innerHTML = data.username + "'s Calendar";
+                updateCalendar();
             } else {
                 //display the login error in html
                 document.getElementById("login_alerts").innerHTML = data.message;
@@ -43,6 +55,8 @@ function loginAjax(event) {
     //clear input fields
     document.getElementById("username").value = "";
     document.getElementById("password").value = "";
+    setLoginStatus(true);
+    updateCalendar();
 }
 
 //register ajax request
@@ -101,4 +115,6 @@ function logoutAjax(event) {
 
     //remove user's name from top of calendar
     document.getElementById("calendar_user").innerHTML = '';
+    setLoginStatus(false);
+    updateCalendar();
 }
