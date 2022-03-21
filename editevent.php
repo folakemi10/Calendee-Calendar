@@ -20,8 +20,15 @@ $end_date = $json_obj['enddate'];
 $start_time = $json_obj['starttime'];
 $end_time = $json_obj['endtime'];
 $tag = $json_obj['tag'];
+$token = $json_obj['token'];
 
-
+if (!hash_equals($_SESSION['token'], $token)) {
+  echo json_encode(array(
+    "success" => false,
+    "message" => "CSRF did not pass"
+  ));
+  die("Request forgery detected");
+}
 
 //edit event
 $stmt = $mysqli->prepare("UPDATE events SET title=?, start_date=?, end_date=?, start_time=?, end_time=?, tag=? WHERE event_id=?");
