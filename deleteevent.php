@@ -31,8 +31,6 @@ if(!$stmt){
   exit;
 }
 
-$to_insert->bind_param('', );
-$to_insert->execute();
-$to_insert->close();
-
-?>
+$stmt->bind_param('i',$event_id );
+$stmt->execute();
+$stmt->close();

@@ -22,18 +22,17 @@ $end_time = $json_obj['endtime'];
 $tag = $json_obj['tag'];
 
 
-//edit event
-$stmt = $mysqli->prepare("UPDATE events SET () values () WHERE event_id=?");
 
-if(!$stmt){
+//edit event
+$stmt = $mysqli->prepare("UPDATE events SET title=?, start_date=?, end_date=?, start_time=?, end_time=?, tag=? WHERE event_id=?");
+
+if (!$stmt) {
   echo json_encode(array(
     "success" => false
   ));
   exit;
 }
 
-$to_insert->bind_param('', );
-$to_insert->execute();
-$to_insert->close();
-
-?>
+$stmt->bind_param('ssssssi', $title, $start_date, $end_date, $start_time, $end_time, $tag, $event_id);
+$stmt->execute();
+$stmt->close();
