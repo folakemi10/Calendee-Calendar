@@ -29,17 +29,26 @@ $end_date = $json_obj['enddate'];
 $start_time = $json_obj['starttime'];
 $end_time = $json_obj['endtime'];
 $tag = $json_obj['tag'];
+$token = $json_obj['token'];
+
+if (!hash_equals($_SESSION['token'], $token)) {
+  echo json_encode(array(
+    "success" => false,
+    "message" => "CSRF did not pass"
+  ));
+  die("Request forgery detected");
+}
 
 
 $stmt = $mysqli->prepare("DELETE FROM events () values () WHERE event_id=?");
 
-if(!$stmt){
+if (!$stmt) {
   echo json_encode(array(
     "success" => false
   ));
   exit;
 }
 
-$stmt->bind_param('i',$event_id );
+$stmt->bind_param('i', $event_id);
 $stmt->execute();
 $stmt->close();

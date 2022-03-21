@@ -1,53 +1,45 @@
 <?php
 require 'connectdatabase.php';
-
 ini_set("session.cookie_httponly", 1);
-session_start();
 
 header("Content-Type: application/json");
 
-$json_str = file_get_contents("php://input");
+$json_str = file_get_contents('php://input');
 $json_obj = json_decode($json_str, true);
 
-//Variables:
-$username = $_SESSION['username'];
-$new_event_date = $json_obj['add_event_date'];
-$new_title = $json_obj['add_title'];
-$new_starttime = $json_obj['add_starttime'];
-$new_endtime = $json_obj['add_endtime'];
-$new_tag = $json_obj['add_tag'];
-$token = $json_obj['token'];
+//Variables can be accessed as such:
+$username = $json_obj['username'];
+$password = $json_obj['password'];
 
-$new_group_share = "";
-
-
-//check csrf token
-if (!hash_equals($_SESSION['token'], $token)) {
-    echo json_encode(array(
-        "success" => false,
-        "message" => "CSRF did not pass"
-    ));
-    die("Request forgery detected");
-}
-
-$stmt = $mysqli->prepare("INSERT INTO events (eventdate, username, title, starttime, endtime, tag, group_share) values (?, ?, ?, ?, ?, ?, ?)");
+$stmt = $mysqli->prepare("SELECT COUNT(*), username, password FROM users WHERE username=?");
 if (!$stmt) {
     printf("Query Prep Failed: %s\n", $mysqli->error);
-    echo json_encode(array(
-        "success" => false,
-        "message" => "Query Prep Failed"
-    ));
     exit;
 }
 
-$stmt->bind_param('sssssss', $new_event_date, $username, $new_title, $new_starttime, $new_endtime, $new_tag, $new_group_share);
+$stmt->bind_param('s', $username);
 $stmt->execute();
 
-$stmt->close();
+$stmt->bind_result($cnt, $username, $pwd_hash);
+$stmt->fetch();
 
-echo json_encode(array(
-    "success" => true,
-    "message" => "Event Added"
-));
-exit;
-?>
+//Accessing Variables
+$username = $_SESSION['username'];
+$title = $json_obj['title'];
+$start_date = $json_obj['startdate'];
+$end_date = $json_obj['enddate'];
+$tag = $json_obj['tag'];
+
+
+$stmt = $mysqli->prepare("INSERT into events () values ()");
+
+if(!$stmt){
+  echo json_encode(array(
+    "success" => false
+  ));
+  exit;
+}
+
+$to_insert->bind_param('', );
+$to_insert->execute();
+$to_insert->close();
