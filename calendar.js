@@ -110,8 +110,9 @@ function updateCalendar() {
     }
     //disable calendar clicks if user is not logged in
     if (logged_in) {
+        //editDialog();
+        displayInfo();
         addDialog();
-        editDialog();
         showEvents();
     } else {
         //hide dialog
@@ -236,8 +237,10 @@ function Month(year, month) {
     };
 }
 
+
+
 /******************************************************************************************************************/
-/***  openDialog(): Open the intial dialog for creating an event when clicking on a cell in the calendar table ***/
+/***  addDialog(): Open the intial dialog for creating an event when clicking on a cell in the calendar table ***/
 /******************************************************************************************************************/
 //Written with help of official JQuery UI documentation: https://jqueryui.com/dialog/#modal-form
 function addDialog() {
@@ -312,7 +315,7 @@ function addDialog() {
     });
 
 
-    $("#day_row td").on("click", function() {
+    $("#day_row td").on("click", function(event) {
         //get current date from cell id and open dialog
         let cell_id = $(this).attr("id");
         const re = /(\d{1,2})_(\d{1,2})_(\d{4})/;
@@ -326,14 +329,14 @@ function addDialog() {
 }
 
 /*****************************************************************************************************/
-/***  showEvents(): shows all events on the calendar after recieving from database in getevent.php ***/
+/***  showEvents(): shows all events on the calendar after recieving from database in getallevents.php ***/
 /*****************************************************************************************************/
 function showEvents() {
     let eventid_arr, eventdate_arr, title_arr, starttime_arr, endtime_arr, tag_arr, group_share_arr;
 
     const data = { 'token': csrf_token };
     //get arrays with all events stored
-    fetch("getevent.php", {
+    fetch("getallevents.php", {
             method: 'POST',
             body: JSON.stringify(data),
             headers: { 'content-type': 'application/json' }
@@ -362,10 +365,6 @@ function showEvents() {
                         let event_box = document.createElement("div");
                         let event_display = document.createTextNode(title_arr[i]);
                         event_box.appendChild(event_display);
-                        let btn = document.createElement("button");
-                        btn.innerHTML = "Edit";
-                        btn.setAttribute("id", "edit_btn")
-                        event_box.appendChild(btn);
 
                         event_box.setAttribute("class", "event_box");
                         event_box.setAttribute("id", eventid_arr[i]);
@@ -378,11 +377,9 @@ function showEvents() {
         .catch(err => console.error(err))
 }
 
-
 /**********************************************************************************************/
 /***  editDialog(): opens dialog when user clicks on existing event for editing or deleting ***/
 /**********************************************************************************************/
-
 function editDialog() {
     let dialog, form,
         title = $("#edit_event_title"),
@@ -438,22 +435,7 @@ function editDialog() {
         width: 400,
         modal: true,
         buttons: {
-            "Update": editEvent,
-            delete: function() {
-                // call delete.php here
-                fetch("deleteevent.php", {
-                        method: 'POST',
-                        body: JSON.stringify(data),
-                        headers: { 'content-type': 'application/json' }
-                    })
-                    .then(response => response.json())
-                    .then(function(data) {
-                        console.log(data.message);
-                        updateCalendar();
-                    })
-                    .catch(err => console.error(err));
-                dialog.dialog("close");
-            }
+            "Update": editEvent
         },
         close: function() {
             form[0].reset();
@@ -462,26 +444,88 @@ function editDialog() {
     });
 
 
-    form = dialog.find("edit_dialog_form").on("submit", function(event) {
+    form = dialog.find("form").on("submit", function(event) {
         event.preventDefault();
         editEvent();
     });
 
 
-    $("#edit_btn").on("click", function() {
-        console.log("edit event  called");
-        //get current date from cell id and open dialog
-        let cell_id = $(this).attr("id");
-        const re = /(\d{1,2})_(\d{1,2})_(\d{4})/;
-        let match = re.exec(cell_id);
-        let full_date = month_names[match[1]] + " " + match[2] + ", " + match[3];
-        document.getElementById('hidden_event_date').innerHTML = cell_id;
-        document.getElementById('event_date').innerHTML = full_date;
+    let cell_id = $(this).attr("id");
+    console.log(cell_id);
+    document.getElementById('hidden_event_date').innerHTML = cell_id;
 
-        dialog.dialog('open');
-    });
+    dialog.dialog('open');
 }
 
+
+/**********************************************************************************************/
+/***  displayInfo(): displays event information from get event.php ****************************/
+/**********************************************************************************************/
+function displayInfo() {
+    $("#day_row td").on('click', '.event_box', function(event) {
+        event.stopPropagation();
+        let event_id = $(this).attr("id");
+        let cell_id = $(this).parent().attr("id");
+        const re = /(\d{1,2})_(\d{1,2})_(\d{4})/;
+        let match = re.exec(cell_id);
+        // let full_date = month_names[match[1]] + " " + match[2] + ", " + match[3];
+
+        let eventdate, title, starttime, endtime, tag, group_share;
+        const data = { 'token': csrf_token };
+        //get arrays with all events stored
+        fetch("getevent.php", {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: { 'content-type': 'application/json' }
+            })
+            .then(response => response.json())
+            .then(function(data) {
+                if (data.success) {
+                    eventdate = data.eventdate;
+                    title = data.title;
+                    starttime = data.starttime;
+                    endtime = data.endtime;
+                    tag = data.tag;
+                    group_share = data.group_share;
+
+                    //display event info
+                    document.getElementById('display_date').innerHTML = eventdate;
+                }
+            })
+            .catch(err => console.error(err))
+
+        $("#display_event").dialog({
+            resizable: true,
+            height: "auto",
+            width: 400,
+            modal: true,
+            buttons: {
+                "Edit Event": function() {
+                    editDialog();
+                },
+                "Delete Event": function() {
+                    const data = {
+                        'event_id': event_id
+                    };
+                    //deleting event with deleteevent.php
+                    fetch("deleteevent.php", {
+                            method: 'POST',
+                            body: JSON.stringify(data),
+                            headers: { 'content-type': 'application/json' }
+                        })
+                        .then(response => response.json())
+                        .then(function(data) {
+                            console.log(data.message);
+                            updateCalendar();
+                        })
+                        .catch(err => console.error(err));
+                    dialog.dialog("close");
+                }
+            }
+        });
+
+    });
+}
 
 
 /**********************************************************************************************/
