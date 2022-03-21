@@ -119,9 +119,40 @@
     <div id="edit_event_dialog" title="Edit Event">
         <form id="edit_dialog_form">
             <fieldset>
+                <div id="event_date" class="event_date"> </div>
+                <div id="hidden_event_date" class="hidden_event_date"> </div>
 
+                <input type="text" id="event_title" class="event_title" placeholder="Add title" required>
+
+                <div class="time_inputs">
+                    <label for="starttime">Start Time:</label>
+                    <input type="time" name="starttime" id="starttime"><br>
+                    <label for="endtime">End Time:</label>
+                    <input type="time" name="endtime" id="endtime">
+                </div>
+
+                <div class="priority_buttons">
+                    <label>Select Priority: </label> <br>
+                    <label><input type="radio" name="priority" id="high" value="high">High</label>
+                    <label><input type="radio" name="priority" id="medium" value="medium">Medium</label>
+                    <label><input type="radio" name="priority" id="low" value="low">Low</label>
+                    <button type="button" class="clear_tag">
+                        Clear Tag
+                    </button>
+                </div>
+
+                <div class="group_share">
+                    <p>Type who you would like to share this event with, and it will appear on both your calendars: </p>
+                    <p>Share with: </p>
+                    <input type="text" name="group_share" id="share1">
+                    <input type="text" name="group_share" id="share2">
+                    <input type="text" name="group_share" id="share3">
+                </div>
+
+                <div id="form_alerts"></div>
             </fieldset>
         </form>
+    </div>
     </div>
 
 

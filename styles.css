@@ -51,7 +51,9 @@ div.hidden_event_date {
 }
 
 .event_box {
-  border: 1px solid rgb(255, 0, 0);
+  border: 1px solid rgb(0, 0, 0);
   border-radius: 5px;
   text-align: left;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
