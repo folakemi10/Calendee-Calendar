@@ -11,6 +11,15 @@ $json_str = file_get_contents('php://input');
 //This will store the data into an associative array
 $json_obj = json_decode($json_str, true);
 
+//check csrf token
+if (!hash_equals($_SESSION['token'], $token)) {
+  echo json_encode(array(
+      "success" => false,
+      "message" => "CSRF did not pass"
+  ));
+  die("Request forgery detected");
+}
+
 //Accessing Variables
 $user_id = $_SESSION['user_id'];
 $event_id = $json_obj['event_id'];

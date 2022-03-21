@@ -21,6 +21,11 @@
 </head>
 
 <body>
+    <!-- Share Calendar-->
+    <div>
+        <label> Share Your Calendar: <input type="text" id="share_cal"/></label>
+        <button id="share_calendar">Share Calendar</button>
+    </div>
     <!-- Login & Register-->
     <div>
         <div id="login">
@@ -108,34 +113,32 @@
                     <input type="text" name="group_share" id="share2">
                     <input type="text" name="group_share" id="share3">
                 </div>
-
-                <div id="form_alerts"></div>
             </fieldset>
         </form>
     </div>
 
 
-    <!-- Edit or Delete Event on Event Click: Title, Start Date, End Date, Start Time, End Time -->
+    <!-- Edit or Delete Event on Event Click -->
     <div id="edit_event_dialog" title="Edit Event">
         <form id="edit_dialog_form">
             <fieldset>
-                <div id="event_date" class="event_date"> </div>
-                <div id="hidden_event_date" class="hidden_event_date"> </div>
+                <div id="edit_event_date" class="edit_event_date"> </div>
+                <div id="edit_hidden_event_date" class="edit_hidden_event_date"> </div>
 
-                <input type="text" id="event_title" class="event_title" placeholder="Add title" required>
+                <input type="text" id="edit_event_title" class="edit_event_title" placeholder="Add title" required>
 
                 <div class="time_inputs">
-                    <label for="starttime">Start Time:</label>
-                    <input type="time" name="starttime" id="starttime"><br>
-                    <label for="endtime">End Time:</label>
-                    <input type="time" name="endtime" id="endtime">
+                    <label for="edit_starttime">Start Time:</label>
+                    <input type="time" name="edit_starttime" id="edit_starttime"><br>
+                    <label for="edit_endtime">End Time:</label>
+                    <input type="time" name="edit_endtime" id="edit_endtime">
                 </div>
 
                 <div class="priority_buttons">
                     <label>Select Priority: </label> <br>
-                    <label><input type="radio" name="priority" id="high" value="high">High</label>
-                    <label><input type="radio" name="priority" id="medium" value="medium">Medium</label>
-                    <label><input type="radio" name="priority" id="low" value="low">Low</label>
+                    <label><input type="radio" name="edit_priority" id="edit_high" value="high">High</label>
+                    <label><input type="radio" name="edit_priority" id="edit_medium" value="medium">Medium</label>
+                    <label><input type="radio" name="edit_priority" id="edit_low" value="low">Low</label>
                     <button type="button" class="clear_tag">
                         Clear Tag
                     </button>
@@ -144,15 +147,13 @@
                 <div class="group_share">
                     <p>Type who you would like to share this event with, and it will appear on both your calendars: </p>
                     <p>Share with: </p>
-                    <input type="text" name="group_share" id="share1">
-                    <input type="text" name="group_share" id="share2">
-                    <input type="text" name="group_share" id="share3">
-                </div>
+                    <input type="text" name="group_share" id="edit_share1">
+                    <input type="text" name="group_share" id="edit_share2">
+                    <input type="text" name="group_share" id="edit_share3">
 
-                <div id="form_alerts"></div>
+                </div>
             </fieldset>
         </form>
-    </div>
     </div>
 
 
