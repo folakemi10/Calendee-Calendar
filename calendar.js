@@ -894,7 +894,14 @@ function editDialog() {
           method: "POST",
           body: JSON.stringify(data),
           headers: { "content-type": "application/json" },
-        }).then((response) => response.json());
+        })
+          .then((response) => response.json())
+          .then(function (data) {
+            console.log(data.message);
+            document.getElementById("form_alerts").innerHTML = data.message;
+            updateCalendar();
+          })
+          .catch((err) => console.error(err));
         dialog.dialog("close");
       },
     },
@@ -917,7 +924,19 @@ function editDialog() {
     let full_date = month_names[match[1]] + " " + match[2] + ", " + match[3];
     document.getElementById("hidden_event_date").innerHTML = cell_id;
     document.getElementById("event_date").innerHTML = full_date;
-
+    // should this be here?
+    fetch("editevent.php", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "content-type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then(function (data) {
+        console.log(data.message);
+        document.getElementById("form_alerts").innerHTML = data.message;
+        updateCalendar();
+      })
+      .catch((err) => console.error(err));
     dialog.dialog("open");
   });
 }
