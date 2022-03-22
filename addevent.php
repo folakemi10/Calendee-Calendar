@@ -17,7 +17,13 @@ $new_endtime = $json_obj['add_endtime'];
 $new_tag = $json_obj['add_tag'];
 $token = $json_obj['token'];
 
-$new_group_share = "";
+//if tags were cleared (none checked)
+if($new_tag == null){
+    $new_tag = "None";
+  }
+
+//sharing info is empty when event is added
+$new_group_share_id = null;
 
 //echo "session token: " + $_SESSION['token'];
 //check csrf token
@@ -29,7 +35,7 @@ if (!hash_equals($_SESSION['token'], $token)) {
     die("Request forgery detected");
   }
 
-$stmt = $mysqli->prepare("INSERT INTO events (eventdate, username, title, starttime, endtime, tag, group_share) values (?, ?, ?, ?, ?, ?, ?)");
+$stmt = $mysqli->prepare("INSERT INTO events (eventdate, username, title, starttime, endtime, tag, groupshareid) values (?, ?, ?, ?, ?, ?, ?)");
 if (!$stmt) {
     printf("Query Prep Failed: %s\n", $mysqli->error);
     echo json_encode(array(
@@ -39,7 +45,7 @@ if (!$stmt) {
 exit;
 }
 
-$stmt->bind_param('sssssss', $new_event_date, $username, $new_title, $new_starttime, $new_endtime, $new_tag, $new_group_share);
+$stmt->bind_param('ssssssi', $new_event_date, $username, $new_title, $new_starttime, $new_endtime, $new_tag, $new_group_share_id);
 $stmt->execute();
 $stmt->close();
 

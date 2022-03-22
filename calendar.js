@@ -1,41 +1,48 @@
 /**** Calendar JS ***/
-
 let logged_in = false;
 //checks if user is logged in everytime script loads (prevent logout on refresh)
-fetch("check_logged_in.php", {
-        method: 'POST',
-        body: JSON.stringify(),
-        headers: { 'content-type': 'application/json' }
-    })
-    .then(response => response.json())
-    .then(function(data) {
-        if (data.success) {
-            console.log("logged in");
-            setLoginStatus(true);
-            //hide login & register panel
-            document.getElementById("login").style.display = "none";
-            document.getElementById("register").style.display = "none";
+function check_login() {
+    fetch("check_logged_in.php", {
+            method: 'POST',
+            body: JSON.stringify(),
+            headers: { 'content-type': 'application/json' }
+        })
+        .then(response => response.json())
+        .then(function(data) {
+            if (data.success) {
+                console.log("logged in");
+                //hide login & register panel
+                document.getElementById("login").style.display = "none";
+                document.getElementById("register").style.display = "none";
 
-            //display logout button
-            document.getElementById("logout_btn").style.display = "block";
+                //display logout button
+                document.getElementById("logout_btn").style.display = "block";
 
-            document.getElementById("calendar_user").innerHTML = data.username + "'s Calendar";
-        } else {
-            console.log("not logged in");
-            setLoginStatus(false);
-            //display login and register panel
-            document.getElementById("login").style.display = "block";
-            document.getElementById("register").style.display = "block";
+                document.getElementById("calendar_user").innerHTML = data.username + "'s Calendar";
+                console.log("showing events inn check login");
+                showEvents();
+                addDialog();
+                displayInfo();
+            } else {
+                console.log("not logged in");
+                //display login and register panel
+                document.getElementById("login").style.display = "block";
+                document.getElementById("register").style.display = "block";
 
-            //hide logout button
-            document.getElementById("logout_btn").style.display = "none";
-        }
-    })
-    .catch(error => console.error('Error:', error));
+                //hide logout button
+                document.getElementById("logout_btn").style.display = "none";
 
-function setLoginStatus(val) {
-    logged_in = val;
-    console.log(val);
+                //hide dialog
+                document.getElementById("add_event_dialog").style.display = "none";
+                //delete all events from calendar
+                const event_boxes = document.querySelectorAll('.event_box');
+                event_boxes.forEach(event_box => {
+                    console.log("deleting events from calendar.js");
+                    event_box.remove();
+                })
+            }
+        })
+        .catch(error => console.error('Error:', error));
 }
 
 //get current date
@@ -108,22 +115,7 @@ function updateCalendar() {
         }
         table.appendChild(row);
     }
-    //disable calendar clicks if user is not logged in
-    if (logged_in) {
-        //editDialog();
-        displayInfo();
-        addDialog();
-        showEvents();
-    } else {
-        //hide dialog
-        document.getElementById("add_event_dialog").style.display = "none";
-        //delete all events from calendar
-        const event_boxes = document.querySelectorAll('.event_box');
-        event_boxes.forEach(event_box => {
-            event_box.remove();
-        });
-    }
-
+    check_login();
 }
 
 
@@ -236,6 +228,7 @@ function Month(year, month) {
         return weeks;
     };
 }
+
 
 
 
@@ -365,11 +358,18 @@ function showEvents() {
                         let event_box = document.createElement("div");
                         let event_display = document.createTextNode(title_arr[i]);
                         event_box.appendChild(event_display);
-
-                        event_box.setAttribute("class", "event_box");
-                        event_box.setAttribute("id", eventid_arr[i]);
-
-                        cell.appendChild(event_box);
+                        //if it is null, not a shared event
+                        if (!group_share_arr[i]) {
+                            console.log("null: " + group_share_arr[i]);
+                            event_box.setAttribute("class", "event_box");
+                            event_box.setAttribute("id", eventid_arr[i]);
+                            cell.appendChild(event_box);
+                        } else {
+                            console.log("shared: " + group_share_arr[i]);
+                            event_box.setAttribute("class", "locked_event_box");
+                            event_box.setAttribute("id", eventid_arr[i]);
+                            cell.appendChild(event_box);
+                        }
                     }
                 }
             }
@@ -416,20 +416,18 @@ function editDialog(id) {
             'token': csrf_token //csrf token
         };
 
-        console.log(title.val(), starttime.val(), endtime.val(), checked_tag, csrf_token);
-
         fetch("editevent.php", {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: { 'content-type': 'application/json' }
-            })
-            .then(response => response.json())
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { 'content-type': 'application/json' }
+        })
+
+        .then(response => response.json())
             .then(function(data) {
                 console.log(data.message);
                 updateCalendar();
             })
             .catch(err => console.error(err));
-
         return valid;
     }
 
@@ -461,6 +459,7 @@ function editDialog(id) {
 }
 
 
+
 /**********************************************************************************************/
 /***  displayInfo(): displays event information from get event.php ****************************/
 /**********************************************************************************************/
@@ -479,7 +478,7 @@ function displayInfo() {
             document.getElementById("display_title").innerHTML = title;
             document.getElementById("display_startendtime").innerHTML = "Start: " + starttime + " - " + "End: " + endtime;
             document.getElementById("display_tag").innerHTML = "Priority: " + tag;
-            //document.getElementById("display_groupshare").innerHTML = "Shared with: " + group_share;
+            document.getElementById("display_id").innerHTML = event_id;
         }
 
         let eventdate, title, starttime, endtime, tag, group_share;
@@ -525,11 +524,12 @@ function displayInfo() {
                     };
                     //deleting event with deleteevent.php
                     fetch("deleteevent.php", {
-                            method: 'POST',
-                            body: JSON.stringify(data),
-                            headers: { 'content-type': 'application/json' }
-                        })
-                        .then(response => response.json())
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                        headers: { 'content-type': 'application/json' }
+                    })
+
+                    .then(response => response.json())
                         .then(function(data) {
                             console.log(data.message);
                         })
@@ -542,10 +542,86 @@ function displayInfo() {
         });
 
     });
+
+
+    $("#day_row td").on('click', '.locked_event_box', function(event) {
+        event.stopPropagation();
+        let event_id = parseInt($(this).attr("id"));
+
+        function display(eventdate, title, starttime, endtime, tag) {
+            //regex for event date
+            const re = /(\d{1,2})_(\d{1,2})_(\d{4})/;
+            let match = re.exec(eventdate);
+            let full_date = month_names[match[1]] + " " + match[2] + ", " + match[3];
+            document.getElementById("locked_display_date").innerHTML = full_date;
+
+            document.getElementById("locked_display_title").innerHTML = title;
+            document.getElementById("locked_display_startendtime").innerHTML = "Start: " + starttime + " - " + "End: " + endtime;
+            document.getElementById("locked_display_tag").innerHTML = "Priority: " + tag;
+            document.getElementById("locked_display_sharedwith").innerHTML = "This event was shared with you.";
+        }
+
+        let eventdate, title, starttime, endtime, tag, group_share;
+        const data = {
+            'event_id': event_id,
+            'token': csrf_token
+        };
+        //get arrays with all events stored
+        fetch("getevent.php", {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: { 'content-type': 'application/json' }
+            })
+            .then(response => response.json())
+            .then(function(data) {
+                if (data.success) {
+                    eventdate = data.eventdate;
+                    title = data.title;
+                    starttime = data.starttime;
+                    endtime = data.endtime;
+                    tag = data.tag;
+                    group_share = data.group_share;
+
+                    display(eventdate, title, starttime, endtime, tag, group_share);
+                }
+            })
+            .catch(err => console.error(err))
+
+        $("#locked_display_event").dialog({
+            resizable: true,
+            height: "auto",
+            width: 400,
+            modal: true
+        });
+    })
 }
 
+/**********************************************************************************************/
+/***  shareEvent(): shares event with another user ****************************/
+/**********************************************************************************************/
+document.getElementById("share_event").addEventListener("click", shareEvent, false);
 
-/**********************************************************************************************/
-/***  shareEvent(): share event ***************************************************************/
-/**********************************************************************************************/
-function shareEvent() {}
+function shareEvent() {
+    let share_with_username = document.getElementById("share_username").value;
+    let event_id = document.getElementById("display_id").innerHTML;
+
+    //connect to php and send variables
+
+    const data = {
+        'event_id': event_id,
+        'share_user': share_with_username,
+        'token': csrf_token //csrf token
+    };
+
+    fetch("shareevent.php", {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { 'content-type': 'application/json' }
+        })
+        .then(response => response.json())
+        .then(function(data) {
+            console.log(data.message);
+            updateCalendar();
+        })
+        .catch(err => console.error(err));
+}

@@ -55,8 +55,6 @@ function loginAjax(event) {
     //clear input fields
     document.getElementById("username").value = "";
     document.getElementById("password").value = "";
-    setLoginStatus(true);
-    updateCalendar();
 }
 
 //register ajax request
@@ -104,17 +102,31 @@ function logoutAjax(event) {
             headers: { 'content-type': 'application/json' }
         })
         .then(response => response.json())
-        .then(data => console.log(data.success ? "You've been logged out!" : `You were not logged out ${data.message}`))
+        .then(function(data) {
+            if (data.success) {
+                console.log("You've been logged out!");
+
+                //display login and register panel
+                document.getElementById("login").style.display = "block";
+                document.getElementById("register").style.display = "block";
+                //hide logout button
+                document.getElementById("logout_btn").style.display = "none";
+
+                //remove user's name from top of calendar
+                document.getElementById("calendar_user").innerHTML = '';
+
+                //hide dialog
+                document.getElementById("add_event_dialog").style.display = "none";
+                //delete all events from calendar
+                const event_boxes = document.querySelectorAll('.event_box');
+                event_boxes.forEach(event_box => {
+                    console.log("deleting events from login.js");
+                    event_box.remove();
+                })
+            } else {
+                console.log(data.message);
+            }
+        })
         .catch(error => console.error('Error:', error))
-
-    //display login and register panel
-    document.getElementById("login").style.display = "block";
-    document.getElementById("register").style.display = "block";
-    //hide logout button
-    document.getElementById("logout_btn").style.display = "none";
-
-    //remove user's name from top of calendar
-    document.getElementById("calendar_user").innerHTML = '';
-    setLoginStatus(false);
     updateCalendar();
 }

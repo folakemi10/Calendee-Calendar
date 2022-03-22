@@ -18,7 +18,7 @@ $title_arr = [];
 $starttime_arr = [];
 $endtime_arr = [];
 $tag_arr = [];
-$group_share_arr = [];
+$group_share_id_arr = [];
 
 //check csrf token
 if (!hash_equals($_SESSION['token'], $token)) {
@@ -26,11 +26,11 @@ if (!hash_equals($_SESSION['token'], $token)) {
       "success" => false,
       "message" => "CSRF did not pass"
   ));
-  die("Request forgery detected");
+  exit;
 }
 
 //get all events associated with current username
-$stmt = $mysqli->prepare("SELECT eventid, eventdate, title, starttime, endtime, tag, group_share FROM events WHERE username = ?");
+$stmt = $mysqli->prepare("SELECT eventid, eventdate, title, starttime, endtime, tag, groupshareid FROM events WHERE username = ?");
 if (!$stmt) {
     printf("Query Prep Failed: %s\n", $mysqli->error);
     echo json_encode(array(
@@ -43,7 +43,7 @@ if (!$stmt) {
 $stmt->bind_param('s', $username);
 $stmt->execute();
 
-$stmt->bind_result($eventid, $eventdate, $title, $starttime, $endtime, $tag, $group_share);
+$stmt->bind_result($eventid, $eventdate, $title, $starttime, $endtime, $tag, $group_share_id);
 
 while ($stmt->fetch()) {
   array_push($eventid_arr, htmlentities($eventid));
@@ -52,7 +52,7 @@ while ($stmt->fetch()) {
   array_push($starttime_arr, htmlentities($starttime));
   array_push($endtime_arr, htmlentities($endtime));
   array_push($tag_arr, htmlentities($tag));
-  array_push($group_share_arr, htmlentities($group_share));
+  array_push($group_share_id_arr, htmlentities($group_share_id));
 }
 $stmt->close();
 
@@ -65,7 +65,7 @@ echo json_encode(array(
     "starttime_arr"=> $starttime_arr,
     "endtime_arr"=> $endtime_arr,
     "tag_arr"=> $tag_arr,
-    "group_share_arr" => $group_share_arr
+    "group_share_arr" => $group_share_id_arr
 ));
 exit;
 

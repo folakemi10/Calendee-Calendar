@@ -87,7 +87,7 @@
                 <div id="event_date" class="event_date"> </div>
                 <div id="hidden_event_date" class="hidden_event_date"> </div>
 
-                <input type="text" id="event_title" class="event_title" placeholder="Add title" required>
+                <input type="text" id="event_title" class="event_title" placeholder="Add title">
 
                 <div class="time_inputs">
                     <label for="starttime">Start Time:</label>
@@ -105,13 +105,6 @@
                         Clear Tag
                     </button>
                 </div>
-
-                <div class="group_share">
-                    <p>Type who you would like to share this event with, and it will appear on both your calendars: </p>
-                    <p>Share with: </p>
-                    <input type="text" name="group_share" id="share">
-                    <button id="edit_share"> Share </button>
-                </div>
             </fieldset>
         </form>
     </div>
@@ -119,11 +112,27 @@
 
     <!-- Display Event -->
     <div id="display_event" title="Event Details">
+        <div id=display_id style='display: none;'> </div>
         <div id="display_date"> </div>
         <div id="display_title"> </div>
         <div id="display_startendtime"> </div>
         <div id="display_tag"> </div>
-        <div id="display_sharedwith"> </div>
+        <div class="group_share">
+            <p>Type who you would like to share this event with, and it will appear on both your calendars: </p>
+            <p>Share with: </p>
+            <input type="text" id="share_username">
+            <button id="share_event"> Share </button>
+        </div>
+    </div>
+
+    <!-- Locked Display Event -->
+    <div id="locked_display_event" title="Event Details">
+        <div id=locked_display_id style='display: none;'> </div>
+        <div id="locked_display_date"> </div>
+        <div id="locked_display_title"> </div>
+        <div id="locked_display_startendtime"> </div>
+        <div id="locked_display_tag"> </div>
+        <div id="locked_display_sharedwith"> </div>
     </div>
 
     <!-- Edit or Delete Event on Event Click -->
@@ -133,7 +142,7 @@
                 <div id="edit_event_date" class="edit_event_date"> </div>
                 <div id="edit_hidden_event_date" class="edit_hidden_event_date"> </div>
 
-                <input type="text" id="edit_event_title" placeholder="Edit title" required>
+                <input type="text" id="edit_event_title" placeholder="Edit title">
 
                 <div class="time_inputs">
                     <label for="edit_starttime">Start Time:</label>
@@ -150,13 +159,6 @@
                     <button type="button" class="clear_tag">
                         Clear Tag
                     </button>
-                </div>
-
-                <div class="group_share">
-                    <p>Type who you would like to share this event with, and it will appear on both your calendars: </p>
-                    <p>Share with: </p>
-                    <input type="text" name="group_share" id="edit_share">
-                    <button id="edit_share"> Share </button>
                 </div>
             </fieldset>
         </form>

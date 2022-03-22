@@ -21,11 +21,10 @@ if (!hash_equals($_SESSION['token'], $token)) {
       "success" => false,
       "message" => "CSRF did not pass"
   ));
-  die("Request forgery detected");
 }
 
-//get all events associated with current username
-$stmt = $mysqli->prepare("SELECT eventdate, title, starttime, endtime, tag, group_share FROM events WHERE eventid = ?");
+//get event that was clicked
+$stmt = $mysqli->prepare("SELECT eventdate, title, starttime, endtime, tag, groupshareid FROM events WHERE eventid = ?");
 if (!$stmt) {
     printf("Query Prep Failed: %s\n", $mysqli->error);
     echo json_encode(array(
@@ -38,7 +37,7 @@ if (!$stmt) {
 $stmt->bind_param('i', $event_id);
 $stmt->execute();
 
-$stmt->bind_result($event_date, $event_title, $event_starttime, $event_endtime, $event_tag, $event_group_share);
+$stmt->bind_result($event_date, $event_title, $event_starttime, $event_endtime, $event_tag, $event_group_share_id);
 $stmt->fetch();
 $stmt->close();  
 
@@ -50,7 +49,7 @@ echo json_encode(array(
     "starttime"=> $event_starttime,
     "endtime"=> $event_endtime,
     "tag"=> $event_tag,
-    "group_share" => $event_group_share
+    "group_share" => $event_group_share_id
 ));
 exit;
 
