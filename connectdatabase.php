@@ -21,7 +21,7 @@
             starttime VARCHAR(5) NOT NULL,
             endtime VARCHAR(5) NOT NULL,
             tag VARCHAR(10) NOT NULL,
-            group_share TEXT NOT NULL,
+            groupshareid int(11),
             PRIMARY KEY (eventid)
         )ENGINE=InnoDB DEFAULT CHARSET=utf8;
         

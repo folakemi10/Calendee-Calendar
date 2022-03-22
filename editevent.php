@@ -17,7 +17,6 @@ $title = $json_obj['edit_title'];
 $start_time = $json_obj['edit_starttime'];
 $end_time = $json_obj['edit_endtime'];
 $tag = $json_obj['edit_tag'];
-$group_share = $json_obj['edit_groupshare'];
 $token = $json_obj['token'];
 
 echo $event_id . $title . $start_time . $end_time . $tag  . $group_share . $token;
@@ -31,7 +30,7 @@ if (!hash_equals($_SESSION['token'], $token)) {
 }
 
 //edit event
-$stmt = $mysqli->prepare("UPDATE events SET title=?, starttime=?, endtime=?, tag=?, group_share=? WHERE eventid=?");
+$stmt = $mysqli->prepare("UPDATE events SET title=?, starttime=?, endtime=?, tag=? WHERE eventid=?");
 
 if (!$stmt) {
   printf("Query Prep Failed: %s\n", $mysqli->error);
@@ -42,7 +41,7 @@ if (!$stmt) {
   exit;
 }
 
-$stmt->bind_param('sssssi', $title, $start_time, $end_time, $tag, $group_share, $event_id);
+$stmt->bind_param('ssssi', $title, $start_time, $end_time, $tag, $event_id);
 $stmt->execute();
 $stmt->close();
 
