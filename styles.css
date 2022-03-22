@@ -1,28 +1,112 @@
 body {
-  background-image: linear-gradient(to right, #380036, #0cbaba);
+  background-image: linear-gradient(to right, #e045db, #0cbaba);
   font-family: "Noto Sans", sans-serif;
 }
 
-.calendar_header {
-  margin: auto;
-  width: 50%;
+.user_name {
   text-align: center;
+  color: white;
+  font-family: Georgia;
+  font-size: larger;
 }
 
-.btn {
-  border-radius: 50%;
+.calendar_header {
+  /* //margin: auto; */
+  width: 100%;
+  color: white;
+  align-self: center;
+  text-align: center;
+  font-size: large;
+  font-weight: bolder;
+}
+
+.login_register {
+  padding-top: 50px;
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Montserrat", sans-serif;
+  color: white;
+  /* margin: -20px 0 50px; */
+}
+
+.right_btn {
+  margin-left: 400px;
+  margin-right: 10px;
+  color: white;
+  font-size: large;
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+}
+
+.left_btn {
+  margin-left: 10px;
+  margin-right: 400px;
+  color: rgb(255, 255, 255);
+  font-size: large;
+  /* width: 50%;
+  height: 40px; */
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+}
+
+.login_btn {
+  border-radius: 8%;
+  border: none;
+  padding: 9px 12px;
+  /* margin-left: 200px;
+  margin-right: 100px; */
+  background-image: linear-gradient(to right, #e045db, #0cbaba);
+  color: rgb(255, 255, 255);
+}
+
+.logout_btn {
+  align-items: right;
+  float: right;
+  border-radius: 8%;
+  border: none;
   padding: 9px 12px;
   margin-left: 100px;
   margin-right: 100px;
-  background-color: black;
-  color: white;
+  background-image: linear-gradient(to right, #e045db, #0cbaba);
+  color: rgb(255, 255, 255);
+}
+
+.register_btn {
+  border-radius: 8%;
+  border: none;
+  padding: 9px 12px;
+  /* margin-left: 90px;
+  margin-right: 100px; */
+  background-image: linear-gradient(to right, #e045db, #0cbaba);
+  color: rgb(255, 255, 255);
+}
+
+.share_btn {
+  border-radius: 8%;
+  border: none;
+  padding: 9px 12px;
+  margin-left: 100px;
+  margin-right: 100px;
+  background-image: linear-gradient(to right, #e045db, #0cbaba);
+  color: rgb(255, 255, 255);
 }
 
 .calendar_table {
   width: 80%;
   box-shadow: rgb(0, 0, 0);
   background-color: aliceblue;
-  border-radius: 4%;
+  border-radius: 1%;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
     rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
@@ -42,19 +126,33 @@ body {
   padding-bottom: 80px;
   text-align: center;
   vertical-align: top;
-  border: 1px solid #000000;
-  height: 2px;
+  /* height: 2px;
   overflow-x: hidden;
   overflow-y: auto;
+  background-color: rgb(52, 78, 100); */
 }
+.day_cell {
+  max-height: 7px;
+  overflow: auto;
+  width: 6px;
+  background-color: rgb(52, 78, 100);
+}
+
 .calendar_body th {
   padding: 5px;
   padding-bottom: 80px;
   text-align: center;
   vertical-align: top;
-  height: 2px;
-  overflow-x: hidden;
-  overflow-y: auto;
+  /* Set the height of table body
+  height: 50px;
+
+  /* Set vertical scroll */
+  /* Hide the horizontal scroll */
+  /* overflow-x: hidden; */
+}
+
+.day_number {
+  color: #0cbaba;
 }
 
 input.text {
@@ -88,6 +186,6 @@ div.hidden_event_date {
     rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
     rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
   color: aliceblue;
-  height: 10px;
+  height: 20px;
   margin-bottom: 12px;
 }
