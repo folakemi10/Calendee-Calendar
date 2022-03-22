@@ -5,9 +5,12 @@ folakemi shofu 488093 @folakemi10
 ## Chelsea's Instance
 http://ec2-3-89-105-238.compute-1.amazonaws.com/~cyuan/module5/calendar.html
 
-Usernamew & Passwords:
+Usernames & Passwords:
+
 user1 123
+
 user2 123
+
 user3 123
 
 Registering a new username & password is also available.
