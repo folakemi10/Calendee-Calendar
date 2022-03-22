@@ -109,9 +109,8 @@
                 <div class="group_share">
                     <p>Type who you would like to share this event with, and it will appear on both your calendars: </p>
                     <p>Share with: </p>
-                    <input type="text" name="group_share" id="share1">
-                    <input type="text" name="group_share" id="share2">
-                    <input type="text" name="group_share" id="share3">
+                    <input type="text" name="group_share" id="share">
+                    <button id="edit_share"> Share </button>
                 </div>
             </fieldset>
         </form>
@@ -134,13 +133,13 @@
                 <div id="edit_event_date" class="edit_event_date"> </div>
                 <div id="edit_hidden_event_date" class="edit_hidden_event_date"> </div>
 
-                <input type="text" id="edit_event_title" class="edit_event_title" placeholder="Add title" required>
+                <input type="text" id="edit_event_title" placeholder="Edit title" required>
 
                 <div class="time_inputs">
                     <label for="edit_starttime">Start Time:</label>
-                    <input type="time" name="edit_starttime" id="edit_starttime"><br>
+                    <input type="time" id="edit_starttime"><br>
                     <label for="edit_endtime">End Time:</label>
-                    <input type="time" name="edit_endtime" id="edit_endtime">
+                    <input type="time" id="edit_endtime">
                 </div>
 
                 <div class="priority_buttons">
@@ -156,10 +155,8 @@
                 <div class="group_share">
                     <p>Type who you would like to share this event with, and it will appear on both your calendars: </p>
                     <p>Share with: </p>
-                    <input type="text" name="group_share" id="edit_share1">
-                    <input type="text" name="group_share" id="edit_share2">
-                    <input type="text" name="group_share" id="edit_share3">
-
+                    <input type="text" name="group_share" id="edit_share">
+                    <button id="edit_share"> Share </button>
                 </div>
             </fieldset>
         </form>

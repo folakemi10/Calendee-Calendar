@@ -27,7 +27,7 @@ if (!hash_equals($_SESSION['token'], $token)) {
 }
 
 
-$stmt = $mysqli->prepare("DELETE FROM events () values () WHERE event_id=?");
+$stmt = $mysqli->prepare("DELETE FROM events WHERE eventid=?");
 if (!$stmt) {
   printf("Query Prep Failed: %s\n", $mysqli->error);
   echo json_encode(array(
@@ -40,3 +40,10 @@ if (!$stmt) {
 $stmt->bind_param('i', $event_id);
 $stmt->execute();
 $stmt->close();
+
+echo json_encode(array(
+  "success" => true,
+  "message" => "Event Deleted"
+));
+exit;
+?>

@@ -380,11 +380,14 @@ function showEvents() {
 /**********************************************************************************************/
 /***  editDialog(): opens dialog when user clicks on existing event for editing or deleting ***/
 /**********************************************************************************************/
-function editDialog() {
+function editDialog(id) {
+    let event_id = id;
+
     let dialog, form,
         title = $("#edit_event_title"),
         starttime = $("#edit_starttime"),
         endtime = $("#edit_endtime"),
+        edit_share = "",
         allFields = $([]).add(title).add(starttime).add(endtime);
 
     //offer option to clear priority tags
@@ -400,18 +403,20 @@ function editDialog() {
         allFields.removeClass("ui-state-error");
 
         //make variables for passing data
-        let hidden_event_date = document.getElementById('edit_hidden_event_date').innerHTML;
         let checked_tag = $("input[type='radio']:checked").val();
 
         //connect to php and send variables
         const data = {
-            'add_event_date': hidden_event_date, //string for event_date in MM_DD_YYYY format
-            'add_title': title.val(), //string for event name
-            'add_starttime': starttime.val(), //string for start time
-            'add_endtime': endtime.val(), //string for end time
-            'add_tag': checked_tag, //string for which priority is checked
+            'event_id': event_id,
+            'edit_title': title.val(), //string for event name
+            'edit_starttime': starttime.val(), //string for start time
+            'edit_endtime': endtime.val(), //string for end time
+            'edit_tag': checked_tag, //string for which priority is checked
+            'edit_groupshare': edit_share, //string for which priority is checked
             'token': csrf_token //csrf token
         };
+
+        console.log(title.val(), starttime.val(), endtime.val(), checked_tag, csrf_token);
 
         fetch("editevent.php", {
                 method: 'POST',
@@ -425,7 +430,6 @@ function editDialog() {
             })
             .catch(err => console.error(err));
 
-        dialog.dialog("close");
         return valid;
     }
 
@@ -435,7 +439,11 @@ function editDialog() {
         width: 400,
         modal: true,
         buttons: {
-            "Update": editEvent
+            "Update": function() {
+                editEvent();
+                updateCalendar();
+                $(this).dialog("close");
+            }
         },
         close: function() {
             form[0].reset();
@@ -449,11 +457,6 @@ function editDialog() {
         editEvent();
     });
 
-
-    let cell_id = $(this).attr("id");
-    console.log(cell_id);
-    document.getElementById('hidden_event_date').innerHTML = cell_id;
-
     dialog.dialog('open');
 }
 
@@ -464,14 +467,26 @@ function editDialog() {
 function displayInfo() {
     $("#day_row td").on('click', '.event_box', function(event) {
         event.stopPropagation();
-        let event_id = $(this).attr("id");
-        let cell_id = $(this).parent().attr("id");
-        const re = /(\d{1,2})_(\d{1,2})_(\d{4})/;
-        let match = re.exec(cell_id);
-        // let full_date = month_names[match[1]] + " " + match[2] + ", " + match[3];
+        let event_id = parseInt($(this).attr("id"));
+
+        function display(eventdate, title, starttime, endtime, tag, group_share) {
+            //regex for event date
+            const re = /(\d{1,2})_(\d{1,2})_(\d{4})/;
+            let match = re.exec(eventdate);
+            let full_date = month_names[match[1]] + " " + match[2] + ", " + match[3];
+            document.getElementById("display_date").innerHTML = full_date;
+
+            document.getElementById("display_title").innerHTML = title;
+            document.getElementById("display_startendtime").innerHTML = "Start: " + starttime + " - " + "End: " + endtime;
+            document.getElementById("display_tag").innerHTML = "Priority: " + tag;
+            //document.getElementById("display_groupshare").innerHTML = "Shared with: " + group_share;
+        }
 
         let eventdate, title, starttime, endtime, tag, group_share;
-        const data = { 'token': csrf_token };
+        const data = {
+            'event_id': event_id,
+            'token': csrf_token
+        };
         //get arrays with all events stored
         fetch("getevent.php", {
                 method: 'POST',
@@ -488,8 +503,7 @@ function displayInfo() {
                     tag = data.tag;
                     group_share = data.group_share;
 
-                    //display event info
-                    document.getElementById('display_date').innerHTML = eventdate;
+                    display(eventdate, title, starttime, endtime, tag, group_share);
                 }
             })
             .catch(err => console.error(err))
@@ -501,11 +515,13 @@ function displayInfo() {
             modal: true,
             buttons: {
                 "Edit Event": function() {
-                    editDialog();
+                    editDialog(event_id);
+                    $(this).dialog("close");
                 },
                 "Delete Event": function() {
                     const data = {
-                        'event_id': event_id
+                        'event_id': event_id,
+                        'token': csrf_token
                     };
                     //deleting event with deleteevent.php
                     fetch("deleteevent.php", {
@@ -516,10 +532,11 @@ function displayInfo() {
                         .then(response => response.json())
                         .then(function(data) {
                             console.log(data.message);
-                            updateCalendar();
                         })
                         .catch(err => console.error(err));
-                    dialog.dialog("close");
+
+                    updateCalendar();
+                    $(this).dialog("close");
                 }
             }
         });
