@@ -27,19 +27,6 @@ function check_login() {
                 //hide dialog
                 document.getElementById("display_event").style.display = "none";
 
-                <<
-                << << < HEAD
-                document.getElementById("calendar_user").innerHTML = data.username + "'s Calendar";
-                showEvents();
-                addDialog();
-                displayInfo();
-                showTheme();
-            } else {
-                console.log("not logged in");
-                //display login and register panel
-                document.getElementById("login").style.display = "block";
-                document.getElementById("register").style.display = "block"; ===
-                === =
                 document.getElementById("calendar_user").innerHTML =
                     data.username + "'s Calendar";
                 showEvents();
@@ -49,8 +36,7 @@ function check_login() {
                 console.log("not logged in");
                 //display login and register panel
                 document.getElementById("login").style.display = "block";
-                document.getElementById("register").style.display = "block"; >>>
-                >>> > f0e221e15ebc91fa3082c0cf04757f040190a685
+                document.getElementById("register").style.display = "block";
 
                 //hide logout button
                 document.getElementById("logout_btn").style.display = "none";
