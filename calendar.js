@@ -27,6 +27,8 @@ function check_login() {
                 //hide dialog
                 document.getElementById("display_event").style.display = "none";
 
+                <<
+                << << < HEAD
                 document.getElementById("calendar_user").innerHTML = data.username + "'s Calendar";
                 showEvents();
                 addDialog();
@@ -36,7 +38,19 @@ function check_login() {
                 console.log("not logged in");
                 //display login and register panel
                 document.getElementById("login").style.display = "block";
-                document.getElementById("register").style.display = "block";
+                document.getElementById("register").style.display = "block"; ===
+                === =
+                document.getElementById("calendar_user").innerHTML =
+                    data.username + "'s Calendar";
+                showEvents();
+                addDialog();
+                displayInfo();
+            } else {
+                console.log("not logged in");
+                //display login and register panel
+                document.getElementById("login").style.display = "block";
+                document.getElementById("register").style.display = "block"; >>>
+                >>> > f0e221e15ebc91fa3082c0cf04757f040190a685
 
                 //hide logout button
                 document.getElementById("logout_btn").style.display = "none";
@@ -91,20 +105,26 @@ var month_names = [
 
 window.onload = function() {
     updateCalendar();
-
 };
 // Change the month when the "next" button is pressed
-document.getElementById("next_month_btn").addEventListener("click", function(event) {
-    currentMonth = currentMonth.nextMonth(); // Previous month would be currentMonth.prevMonth()
-    updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
-}, false);
+document.getElementById("next_month_btn").addEventListener(
+    "click",
+    function(event) {
+        currentMonth = currentMonth.nextMonth(); // Previous month would be currentMonth.prevMonth()
+        updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
+    },
+    false
+);
 
 // Change the month when the "prev" button is pressed
-document.getElementById("prev_month_btn").addEventListener("click", function(event) {
-    currentMonth = currentMonth.prevMonth(); // Previous month would be currentMonth.prevMonth()
-    updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
-
-}, false);
+document.getElementById("prev_month_btn").addEventListener(
+    "click",
+    function(event) {
+        currentMonth = currentMonth.prevMonth(); // Previous month would be currentMonth.prevMonth()
+        updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
+    },
+    false
+);
 
 // This updateCalendar() function only alerts the dates in the currently specified month.  You need to write
 // it to modify the DOM (optionally using jQuery) to display the days and weeks in the current month.
@@ -413,7 +433,8 @@ function showEvents() {
 function editDialog(id) {
     let event_id = id;
 
-    let dialog, form,
+    let dialog,
+        form,
         title = $("#edit_event_title"),
         starttime = $("#edit_starttime"),
         endtime = $("#edit_endtime"),
@@ -576,9 +597,12 @@ function displayInfo() {
             document.getElementById("locked_display_date").innerHTML = full_date;
 
             document.getElementById("locked_display_title").innerHTML = title;
-            document.getElementById("locked_display_startendtime").innerHTML = "Start: " + starttime + " - " + "End: " + endtime;
-            document.getElementById("locked_display_tag").innerHTML = "Priority: " + tag;
-            document.getElementById("locked_display_sharedwith").innerHTML = "This event was shared with you.";
+            document.getElementById("locked_display_startendtime").innerHTML =
+                "Start: " + starttime + " - " + "End: " + endtime;
+            document.getElementById("locked_display_tag").innerHTML =
+                "Priority: " + tag;
+            document.getElementById("locked_display_sharedwith").innerHTML =
+                "This event was shared with you.";
         }
 
         let eventdate, title, starttime, endtime, tag, group_share;
@@ -655,8 +679,12 @@ function showTheme() {
         .catch((err) => console.error(err));
 }
 
-document.getElementById("dark_theme_btn").addEventListener("click", darkThemeChange, false);
-document.getElementById("default_theme_btn").addEventListener("click", defaultThemeChange, false);
+document
+    .getElementById("dark_theme_btn")
+    .addEventListener("click", darkThemeChange, false);
+document
+    .getElementById("default_theme_btn")
+    .addEventListener("click", defaultThemeChange, false);
 
 function darkThemeChange(event) {
     //hidden html
@@ -673,7 +701,9 @@ function defaultThemeChange(event) {
 /**********************************************************************************************/
 /***  shareEvent(): shares event with another user ****************************/
 /**********************************************************************************************/
-document.getElementById("share_event").addEventListener("click", shareEvent, false);
+document
+    .getElementById("share_event")
+    .addEventListener("click", shareEvent, false);
 
 function shareEvent() {
     let share_with_username = document.getElementById("share_username").value;
@@ -688,16 +718,16 @@ function shareEvent() {
     };
 
     fetch("shareevent.php", {
-            method: 'POST',
+            method: "POST",
             body: JSON.stringify(data),
-            headers: { 'content-type': 'application/json' }
+            headers: { "content-type": "application/json" },
         })
-        .then(response => response.json())
+        .then((response) => response.json())
         .then(function(data) {
             console.log(data.message);
             updateCalendar();
         })
-        .catch(err => console.error(err));
+        .catch((err) => console.error(err));
 }
 
 /**********************************************************************************************/

@@ -9,13 +9,13 @@ $json_str = file_get_contents('php://input');
 $json_obj = json_decode($json_str, true);
 
 //Variables:
-$username = $_SESSION['username'];
-$new_event_date = $json_obj['add_event_date'];
-$new_title = $json_obj['add_title'];
-$new_starttime = $json_obj['add_starttime'];
-$new_endtime = $json_obj['add_endtime'];
-$new_tag = $json_obj['add_tag'];
-$token = $json_obj['token'];
+$username = htmlentities($_SESSION['username']);
+$new_event_date = htmlentities($json_obj['add_event_date']);
+$new_title = htmlentities($json_obj['add_title']);
+$new_starttime = htmlentities($json_obj['add_starttime']);
+$new_endtime = htmlentities($json_obj['add_endtime']);
+$new_tag = htmlentities($json_obj['add_tag']);
+$token = htmlentities($json_obj['token']);
 
 //if tags were cleared (none checked)
 if($new_tag == null){
@@ -54,5 +54,3 @@ echo json_encode(array(
     "message" => "Event Added"
 ));
 exit;
-?>
-
