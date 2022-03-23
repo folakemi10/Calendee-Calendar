@@ -45,7 +45,6 @@ function loginAjax(event) {
                 document.getElementById("calendar_user").innerHTML =
                     data.username + "'s Calendar";
                 updateCalendar();
-                showTheme();
             } else {
                 //display the login error in html
                 document.getElementById("login_alerts").innerHTML = data.message;

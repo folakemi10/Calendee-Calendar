@@ -32,6 +32,7 @@ function check_login() {
                 showEvents();
                 addDialog();
                 displayInfo();
+                showTheme();
             } else {
                 console.log("not logged in");
                 //display login and register panel

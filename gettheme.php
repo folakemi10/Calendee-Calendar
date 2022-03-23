@@ -41,7 +41,7 @@ if ($new_theme != null){
 
 //get theme in database
 $stmt2 = $mysqli->prepare("SELECT COUNT(*), theme FROM users WHERE username=?");
-if (!$stmt) {
+if (!$stmt2) {
     echo json_encode(array(
         "success" => false,
         "message" => "Query Prep2 Failed"
