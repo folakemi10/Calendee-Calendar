@@ -64,14 +64,12 @@ window.onload = function() {
 document.getElementById("next_month_btn").addEventListener("click", function(event) {
     currentMonth = currentMonth.nextMonth(); // Previous month would be currentMonth.prevMonth()
     updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
-    //alert("The new month is "+currentMonth.month+" "+currentMonth.year);
 }, false);
 
 // Change the month when the "prev" button is pressed
 document.getElementById("prev_month_btn").addEventListener("click", function(event) {
     currentMonth = currentMonth.prevMonth(); // Previous month would be currentMonth.prevMonth()
     updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
-    //alert("The new month is "+currentMonth.month+" "+currentMonth.year);
 }, false);
 
 
@@ -80,7 +78,6 @@ document.getElementById("prev_month_btn").addEventListener("click", function(eve
 
 /*** Calendar Grid: in part constructed with https://codepen.io/andyydna/pen/VwYRVQE as a reference ***/
 function updateCalendar() {
-    //alert("in update calendar, current month: " + currentMonth.month);
     let table = document.getElementById("calendar_body");
     table.innerHTML = "";
 
@@ -624,4 +621,30 @@ function shareEvent() {
             updateCalendar();
         })
         .catch(err => console.error(err));
+}
+
+/**********************************************************************************************/
+/***  goToMonth(): allows the user to skip to a new month/year of  their choosing *************/
+/**********************************************************************************************/
+/* completed with reference to: https://codepen.io/andyydna/pen/VwYRVQE */
+document.getElementById("month_change").addEventListener("change", jumpTo, false);
+document.getElementById("year_change").addEventListener("change", jumpTo, false);
+
+function generate_year_range(start, end) {
+    let years = "";
+    for (let i = start; i <= end; i++) {
+        years += "<option value='" + i + "'>" + i + "</option>";
+    }
+    return years;
+}
+
+selectedYear = generate_year_range(1980, 2050);
+document.getElementById("year_change").innerHTML = selectedYear;
+
+function jumpTo() {
+    let newMonth = parseInt(document.getElementById("month_change").value);
+    let newYear = parseInt(document.getElementById("year_change").value);
+
+    currentMonth = new Month(newYear, newMonth);
+    updateCalendar();
 }
