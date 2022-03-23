@@ -19,8 +19,6 @@ $end_time = $json_obj['edit_endtime'];
 $tag = $json_obj['edit_tag'];
 $token = $json_obj['token'];
 
-echo $event_id . $title . $start_time . $end_time . $tag  . $group_share . $token;
-
 if (!hash_equals($_SESSION['token'], $token)) {
   echo json_encode(array(
     "success" => false,

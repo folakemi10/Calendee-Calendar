@@ -29,9 +29,11 @@
     <p class="user_name" id="calendar_user"></p>
 
     <!-- Login & Register-->
-    <div class="login_register">
+    <div>
       <div id="login">
+        <h2>Login</h2>
         <label>
+          Username:
           <input
             type="text"
             name="username"
@@ -39,18 +41,20 @@
             placeholder="Username"
         /></label>
         <label>
+          Password:
           <input
             type="password"
             name="password"
             id="password"
             placeholder="Password"
         /></label>
-        <button class="login_btn" id="login_btn">Login</button>
+        <button id="login_btn">Log In</button>
       </div>
       <div id="login_alerts"></div>
-
       <div id="register">
+        <h2>Register</h2>
         <label>
+          New Username:
           <input
             type="text"
             name="new_username"
@@ -58,6 +62,7 @@
             placeholder="Username"
         /></label>
         <label>
+          New Password:
           <input
             type="password"
             name="new_password"
@@ -65,17 +70,17 @@
             placeholder="Password"
         /></label>
         <label>
+          Confirm Password:
           <input
             type="password"
             name="confirm_password"
             id="confirm_password"
             placeholder="Confirm Password"
         /></label>
-        <button class="register_btn" id="register_btn">Sign Up</button>
+        <button id="register_btn">Sign Up</button>
       </div>
       <div id="register_alerts"></div>
     </div>
-
     <!-- Logout -->
     <div>
       <button class="logout_btn" id="logout_btn">Log Out</button>
@@ -84,12 +89,12 @@
     <!-- <div id="result"></div> -->
 
     <div>
-      <button class="dark_theme_btn" id="dark_theme_btn">dark Theme</button>
+      <button class="dark_theme_btn" id="dark_theme_btn">Dark Theme</button>
     </div>
 
     <div>
       <button class="default_theme_btn" id="default_theme_btn">
-        light Theme
+        Default Theme
       </button>
     </div>
 
@@ -125,15 +130,6 @@
 
       <tbody class="calendar_body" id="calendar_body"></tbody>
     </table>
-
-    <!-- Share Calendar-->
-    <div class="login_register">
-      <p class="share_header"></p>
-      <label class="">
-        <input type="text" id="share_cal" placeholder="Share Calendar with ..."
-      /></label>
-      <button class="share_btn" id="share_calendar">Share Calendar</button>
-    </div>
 
     <!-- Add Event Dialog: Title, Start Date, End Date, Start Time, End Time
     completed with reference to: https://jqueryui.com/dialog/#modal-form -->
@@ -196,7 +192,7 @@
       <div id="display_title"></div>
       <div id="display_startendtime"></div>
       <div id="display_tag"></div>
-      <!-- <div class="group_share">
+      <div class="group_share">
         <p>
           Type who you would like to share this event with, and it will appear
           on both your calendars:
@@ -204,7 +200,7 @@
         <p>Share with:</p>
         <input type="text" id="share_username" />
         <button id="share_event">Share</button>
-      </div> -->
+      </div>
     </div>
 
     <!-- Locked Display Event -->
@@ -265,8 +261,27 @@
       </form>
     </div>
 
+    <!-- Jump to New Month/Year -->
+    <div class="jump_calendar">
+      <label for="month_change">Go to: </label>
+      <select id="month_change">
+        <option value="0">Jan</option>
+        <option value="1">Feb</option>
+        <option value="2">Mar</option>
+        <option value="3">Apr</option>
+        <option value="4">May</option>
+        <option value="5">Jun</option>
+        <option value="6">Jul</option>
+        <option value="7">Aug</option>
+        <option value="8">Sep</option>
+        <option value="9">Oct</option>
+        <option value="10">Nov</option>
+        <option value="11">Dec</option>
+      </select>
+      <select id="year_change"></select>
+    </div>
+
     <script src="calendar.js"></script>
     <script src="login_logout_register.js"></script>
-    <!-- load the JavaScript file -->
   </body>
 </html>
