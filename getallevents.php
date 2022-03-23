@@ -9,8 +9,8 @@ header("Content-Type: application/json");
 $json_str = file_get_contents("php://input");
 $json_obj = json_decode($json_str, true);
 
-$username = $_SESSION['username'];
-$token = $json_obj['token'];
+$username = htmlentities($_SESSION['username']);
+$token = htmlentities($json_obj['token']);
 //arrays for storing all the events associated with that user
 $eventid_arr = [];
 $eventdate_arr = [];
@@ -68,5 +68,3 @@ echo json_encode(array(
     "group_share_arr" => $group_share_id_arr
 ));
 exit;
-
-?>

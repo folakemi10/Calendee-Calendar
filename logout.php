@@ -12,8 +12,8 @@
     $json_obj = json_decode($json_str, true);
 
     //Accessing Variables
-    $theme = $json_obj['theme'];
-    $username = $_SESSION['username'];
+    $theme = htmlentities($json_obj['theme']);
+    $username = htmlentities($_SESSION['username']);
 
     //update theme upon logout
     $stmt = $mysqli->prepare("UPDATE users SET theme=? WHERE username=?");
@@ -38,4 +38,3 @@
         "message" => "Logout succesful and theme updated"
     ));
     exit;
-    ?>

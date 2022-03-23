@@ -7,13 +7,13 @@ session_start();
 header("Content-Type: application/json"); // Since we are sending a JSON response here (not an HTML document), set the MIME Type to application/json
 
 //Because you are posting the data via fetch(), php has to retrieve it elsewhere.
-$json_str = file_get_contents('php://input');
+$json_str =  file_get_contents('php://input');
 //This will store the data into an associative array
-$json_obj = json_decode($json_str, true);
+$json_obj =  json_decode($json_str, true);
 
 //Accessing Variables
-$event_id = $json_obj['event_id'];
-$token = $json_obj['token'];
+$event_id =  htmlentities($json_obj['event_id']);
+$token =  htmlentities($json_obj['token']);
 
 echo $token;
 echo $_SESSION['token'];
@@ -46,4 +46,3 @@ echo json_encode(array(
   "message" => "Event Deleted"
 ));
 exit;
-?>

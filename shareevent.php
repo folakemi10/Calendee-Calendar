@@ -12,9 +12,9 @@ $json_str = file_get_contents('php://input');
 $json_obj = json_decode($json_str, true);
 
 //Get event info from JSON
-$group_share_id = $json_obj['share_user']; //user the event is to be shared with
-$event_id = $json_obj['event_id']; //id of event to be shared
-$token = $json_obj['token']; //csrf token
+$group_share_id = htmlentities($json_obj['share_user']); //user the event is to be shared with
+$event_id = htmlentities($json_obj['event_id']); //id of event to be shared
+$token = htmlentities($json_obj['token']); //csrf token
 
 //check csrf
 if (!hash_equals($_SESSION['token'], $token)) {
@@ -76,4 +76,3 @@ echo json_encode(array(
   "message" => "Event Shared"
 ));
 exit;
-?>

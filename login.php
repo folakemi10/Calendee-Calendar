@@ -10,8 +10,8 @@ $json_str = file_get_contents('php://input');
 $json_obj = json_decode($json_str, true);
 
 //Variables can be accessed as such:
-$username = $json_obj['username'];
-$password = $json_obj['password'];
+$username = htmlentities($json_obj['username']);
+$password = htmlentities($json_obj['password']);
 
 
 $stmt = $mysqli->prepare("SELECT COUNT(*), username, password, theme FROM users WHERE username=?");

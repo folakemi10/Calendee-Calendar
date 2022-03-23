@@ -12,12 +12,12 @@ $json_str = file_get_contents('php://input');
 $json_obj = json_decode($json_str, true);
 
 //Accessing Variables
-$event_id = $json_obj['event_id'];
-$title = $json_obj['edit_title'];
-$start_time = $json_obj['edit_starttime'];
-$end_time = $json_obj['edit_endtime'];
-$tag = $json_obj['edit_tag'];
-$token = $json_obj['token'];
+$event_id =  htmlentities($json_obj['event_id']);
+$title =  htmlentities($json_obj['edit_title']);
+$start_time = htmlentities($json_obj['edit_starttime']);
+$end_time = htmlentities($json_obj['edit_endtime']);
+$tag = htmlentities($json_obj['edit_tag']);
+$token = htmlentities($json_obj['token']);
 
 if (!hash_equals($_SESSION['token'], $token)) {
   echo json_encode(array(
@@ -48,4 +48,3 @@ echo json_encode(array(
   "message" => "Event Edited"
 ));
 exit;
-?>
