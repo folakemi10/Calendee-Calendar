@@ -22,9 +22,12 @@ function check_login() {
                 document.getElementById("dark_theme_btn").style.display = "block";
                 document.getElementById("default_theme_btn").style.display = "block";
 
-                document.getElementById("calendar_user").innerHTML =
-                    data.username + "'s Calendar";
-                console.log("showing events inn check login");
+                //hide dialog
+                document.getElementById("edit_event_dialog").style.display = "none";
+                //hide dialog
+                document.getElementById("display_event").style.display = "none";
+
+                document.getElementById("calendar_user").innerHTML = data.username + "'s Calendar";
                 showEvents();
                 addDialog();
                 displayInfo();
@@ -46,6 +49,9 @@ function check_login() {
 
                 //hide dialog
                 document.getElementById("edit_event_dialog").style.display = "none";
+
+                //hide dialog
+                document.getElementById("display_event").style.display = "none";
                 //delete all events from calendar
                 const event_boxes = document.querySelectorAll(".event_box");
                 event_boxes.forEach((event_box) => {
@@ -84,54 +90,28 @@ var month_names = [
 
 window.onload = function() {
     updateCalendar();
+
 };
 // Change the month when the "next" button is pressed
-document.getElementById("next_month_btn").addEventListener(
-"click",
-function(event) {
+document.getElementById("next_month_btn").addEventListener("click", function(event) {
     currentMonth = currentMonth.nextMonth(); // Previous month would be currentMonth.prevMonth()
     updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
-    <<
-    << << < HEAD
-}, false); ===
-=== =
-//alert("The new month is "+currentMonth.month+" "+currentMonth.year);
-},
-false
-); >>>
->>> > de223051a3af967c9b74827e83d3c04ea1561a04
-
-// Change the month when the "prev" button is pressed
-document.getElementById("prev_month_btn").addEventListener(
-"click",
-function(event) {
-    currentMonth = currentMonth.prevMonth(); // Previous month would be currentMonth.prevMonth()
-    updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
-    <<
-    << << < HEAD
 }, false);
 
-===
-=== =
-//alert("The new month is "+currentMonth.month+" "+currentMonth.year);
-},
-false
-); >>>
->>> > de223051a3af967c9b74827e83d3c04ea1561a04
+// Change the month when the "prev" button is pressed
+document.getElementById("prev_month_btn").addEventListener("click", function(event) {
+    currentMonth = currentMonth.prevMonth(); // Previous month would be currentMonth.prevMonth()
+    updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
+
+}, false);
 
 // This updateCalendar() function only alerts the dates in the currently specified month.  You need to write
 // it to modify the DOM (optionally using jQuery) to display the days and weeks in the current month.
 
 /*** Calendar Grid: in part constructed with https://codepen.io/andyydna/pen/VwYRVQE as a reference ***/
-function updateCalendar() { <<
-    << << < HEAD
+function updateCalendar() {
     let table = document.getElementById("calendar_body");
-    table.innerHTML = ""; ===
-    === =
-    //alert("in update calendar, current month: " + currentMonth.month);
-    let table = document.getElementById("calendar_body");
-    table.innerHTML = ""; >>>
-    >>> > de223051a3af967c9b74827e83d3c04ea1561a04
+    table.innerHTML = "";
 
     //show current month and year at top of calendar
     $("#month_year").empty();
@@ -410,7 +390,6 @@ function showEvents() {
                         event_box.appendChild(event_display);
                         //if it is null, not a shared event
                         if (!group_share_arr[i]) {
-                            console.log("null: " + group_share_arr[i]);
                             event_box.setAttribute("class", "event_box");
                             event_box.setAttribute("id", eventid_arr[i]);
                             cell.appendChild(event_box);
@@ -433,12 +412,10 @@ function showEvents() {
 function editDialog(id) {
     let event_id = id;
 
-    let dialog,
-        form,
+    let dialog, form,
         title = $("#edit_event_title"),
         starttime = $("#edit_starttime"),
         endtime = $("#edit_endtime"),
-        edit_share = "",
         allFields = $([]).add(title).add(starttime).add(endtime);
 
     //offer option to clear priority tags
@@ -462,7 +439,6 @@ function editDialog(id) {
             edit_starttime: starttime.val(), //string for start time
             edit_endtime: endtime.val(), //string for end time
             edit_tag: checked_tag, //string for which priority is checked
-            edit_groupshare: edit_share, //string for which priority is checked
             token: csrf_token, //csrf token
         };
 
@@ -474,7 +450,6 @@ function editDialog(id) {
             .then((response) => response.json())
             .then(function(data) {
                 console.log(data.message);
-                updateCalendar();
             })
             .catch((err) => console.error(err));
         return valid;
@@ -600,12 +575,9 @@ function displayInfo() {
             document.getElementById("locked_display_date").innerHTML = full_date;
 
             document.getElementById("locked_display_title").innerHTML = title;
-            document.getElementById("locked_display_startendtime").innerHTML =
-                "Start: " + starttime + " - " + "End: " + endtime;
-            document.getElementById("locked_display_tag").innerHTML =
-                "Priority: " + tag;
-            document.getElementById("locked_display_sharedwith").innerHTML =
-                "This event was shared with you.";
+            document.getElementById("locked_display_startendtime").innerHTML = "Start: " + starttime + " - " + "End: " + endtime;
+            document.getElementById("locked_display_tag").innerHTML = "Priority: " + tag;
+            document.getElementById("locked_display_sharedwith").innerHTML = "This event was shared with you.";
         }
 
         let eventdate, title, starttime, endtime, tag, group_share;
@@ -648,25 +620,18 @@ function displayInfo() {
 
 function showTheme(theme) {
     //hidden html
-    console.log("inside show theme");
+    console.log("inside show theme: " + theme);
     if (theme == "dark") {
-        console.log("dark themeee");
-        document.body.style.backgroundImage =
-            "linear-gradient(to right, #e045db, #0cbaba)";
+        document.body.style.backgroundImage = "linear-gradient(to right, #e045db, #0cbaba)";
     } else {
-        console.log("light themeee");
         // change to default
         document.body.style.backgroundImage =
             "linear-gradient(to left, #e045db, #0cbaba)";
     }
 }
 
-document
-    .getElementById("dark_theme_btn")
-    .addEventListener("click", darkThemeChange, false);
-document
-    .getElementById("default_theme_btn")
-    .addEventListener("click", defaultThemeChange, false);
+document.getElementById("dark_theme_btn").addEventListener("click", darkThemeChange, false);
+document.getElementById("default_theme_btn").addEventListener("click", defaultThemeChange, false);
 
 function darkThemeChange(event) {
     console.log("insed dark change");
@@ -685,9 +650,7 @@ function defaultThemeChange(event) {
 /**********************************************************************************************/
 /***  shareEvent(): shares event with another user ****************************/
 /**********************************************************************************************/
-document
-    .getElementById("share_event")
-    .addEventListener("click", shareEvent, false);
+document.getElementById("share_event").addEventListener("click", shareEvent, false);
 
 function shareEvent() {
     let share_with_username = document.getElementById("share_username").value;
@@ -715,11 +678,14 @@ function shareEvent() {
 }
 
 /**********************************************************************************************/
-/***  goToMonth(): allows the user to skip to a new month/year of  their choosing *************/
+/***  jumpTo(): allows the user to skip to a new month/year of  their choosing ****************/
 /**********************************************************************************************/
 /* completed with reference to: https://codepen.io/andyydna/pen/VwYRVQE */
-document.getElementById("month_change").addEventListener("change", jumpTo, false);
-document.getElementById("year_change").addEventListener("change", jumpTo, false);
+let current_month = document.getElementById("month_change");
+let current_year = document.getElementById("year_change");
+
+current_month.addEventListener("change", jumpTo, false);
+current_year.addEventListener("change", jumpTo, false);
 
 function generate_year_range(start, end) {
     let years = "";
@@ -729,12 +695,15 @@ function generate_year_range(start, end) {
     return years;
 }
 
-selectedYear = generate_year_range(1980, 2050);
+selectedYear = generate_year_range(1999, 2050);
 document.getElementById("year_change").innerHTML = selectedYear;
 
+current_year.value = year;
+current_month.value = month;
+
 function jumpTo() {
-    let newMonth = parseInt(document.getElementById("month_change").value);
-    let newYear = parseInt(document.getElementById("year_change").value);
+    let newMonth = parseInt(current_month.value);
+    let newYear = parseInt(current_year.value);
 
     currentMonth = new Month(newYear, newMonth);
     updateCalendar();

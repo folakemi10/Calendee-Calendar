@@ -1,5 +1,4 @@
-
-    <?php
+<?php
     require 'connectdatabase.php';
     ini_set("session.cookie_httponly", 1);
 
@@ -31,6 +30,8 @@
     $stmt->bind_param('ss', $theme, $username);
     $stmt->execute();
     $stmt->close();
+
+    session_destroy();
 
     echo json_encode(array(
         "success" => true,
