@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,89 +11,79 @@
     <!-- importing Noto Sans font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet" />
 
     <!-- Importing jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-    <link
-      rel="stylesheet"
-      href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css"
-    />
-  </head>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css" />
+</head>
 
-  <body>
+<body>
     <!-- calendar name for user  -->
     <p class="user_name" id="calendar_user"></p>
 
-<<<<<<< HEAD
-<body>
-=======
->>>>>>> de223051a3af967c9b74827e83d3c04ea1561a04
     <!-- Login & Register-->
     <div class="login_register">
-      <div id="login">
-        <label>
+        <div id="login">
+            <label>
           <input
             type="text"
             name="username"
             id="username"
             placeholder="Username"
         /></label>
-        <label>
+            <label>
           <input
             type="password"
             name="password"
             id="password"
             placeholder="Password"
         /></label>
-        <button class="login_btn" id="login_btn">Login</button>
-      </div>
-      <div id="login_alerts"></div>
+            <button class="login_btn" id="login_btn">Login</button>
+        </div>
+        <div id="login_alerts"></div>
 
-      <div id="register">
-        <label>
+        <div id="register">
+            <label>
           <input
             type="text"
             name="new_username"
             id="new_username"
             placeholder="Username"
         /></label>
-        <label>
+            <label>
           <input
             type="password"
             name="new_password"
             id="new_password"
             placeholder="Password"
         /></label>
-        <label>
+            <label>
           <input
             type="password"
             name="confirm_password"
             id="confirm_password"
             placeholder="Confirm Password"
         /></label>
-        <button class="register_btn" id="register_btn">Sign Up</button>
-      </div>
-      <div id="register_alerts"></div>
+            <button class="register_btn" id="register_btn">Sign Up</button>
+        </div>
+        <div id="register_alerts"></div>
     </div>
 
     <!-- Logout -->
     <div>
-      <button class="logout_btn" id="logout_btn">Log Out</button>
+        <button class="logout_btn" id="logout_btn">Log Out</button>
     </div>
 
     <!-- <div id="result"></div> -->
 
     <div>
-      <button class="dark_theme_btn" id="dark_theme_btn">dark Theme</button>
+        <button class="dark_theme_btn" id="dark_theme_btn">dark Theme</button>
     </div>
 
     <div>
-      <button class="default_theme_btn" id="default_theme_btn">
+        <button class="default_theme_btn" id="default_theme_btn">
         light Theme
       </button>
     </div>
@@ -104,67 +95,61 @@
     <!-- Calendar Structure -->
     <!-- Header: Current Month and Year, Month Navigation -->
     <div class="calendar_header">
-      <p id="month_year"></p>
-      <button type="button" id="prev_month_btn" class="left_btn">
+        <p id="month_year"></p>
+        <button type="button" id="prev_month_btn" class="left_btn">
         &#8249;
       </button>
-      <button type="button" id="next_month_btn" class="right_btn">
+        <button type="button" id="next_month_btn" class="right_btn">
         &#8250;
       </button>
     </div>
 
     <!-- Calendar Grid: in part constructed with https://codepen.io/andyydna/pen/VwYRVQE as a reference -->
     <table class="calendar_table" id="calendar_table">
-      <thead class="days_header" id="days_header">
-        <tr>
-          <th scope="col">SUN</th>
-          <th scope="col">MON</th>
-          <th scope="col">TUE</th>
-          <th scope="col">WED</th>
-          <th scope="col">THU</th>
-          <th scope="col">FRI</th>
-          <th scope="col">SAT</th>
-        </tr>
-      </thead>
+        <thead class="days_header" id="days_header">
+            <tr>
+                <th scope="col">SUN</th>
+                <th scope="col">MON</th>
+                <th scope="col">TUE</th>
+                <th scope="col">WED</th>
+                <th scope="col">THU</th>
+                <th scope="col">FRI</th>
+                <th scope="col">SAT</th>
+            </tr>
+        </thead>
 
-      <tbody class="calendar_body" id="calendar_body"></tbody>
+        <tbody class="calendar_body" id="calendar_body"></tbody>
     </table>
 
     <!-- Share Calendar-->
     <div class="login_register">
-      <p class="share_header"></p>
-      <label class="">
+        <p class="share_header"></p>
+        <label class="">
         <input type="text" id="share_cal" placeholder="Share Calendar with ..."
       /></label>
-      <button class="share_btn" id="share_calendar">Share Calendar</button>
+        <button class="share_btn" id="share_calendar">Share Calendar</button>
     </div>
 
     <!-- Add Event Dialog: Title, Start Date, End Date, Start Time, End Time
     completed with reference to: https://jqueryui.com/dialog/#modal-form -->
     <div id="add_event_dialog" title="Add Event">
-      <form id="dialog_form">
-        <fieldset>
-          <div id="event_date" class="event_date"></div>
-          <div id="hidden_event_date" class="hidden_event_date"></div>
+        <form id="dialog_form">
+            <fieldset>
+                <div id="event_date" class="event_date"></div>
+                <div id="hidden_event_date" class="hidden_event_date"></div>
 
-          <input
-            type="text"
-            id="event_title"
-            class="event_title"
-            placeholder="Add title"
-          />
+                <input type="text" id="event_title" class="event_title" placeholder="Add title" />
 
-          <div class="time_inputs">
-            <label for="starttime">Start Time:</label>
-            <input type="time" name="starttime" id="starttime" /><br />
-            <label for="endtime">End Time:</label>
-            <input type="time" name="endtime" id="endtime" />
-          </div>
+                <div class="time_inputs">
+                    <label for="starttime">Start Time:</label>
+                    <input type="time" name="starttime" id="starttime" /><br />
+                    <label for="endtime">End Time:</label>
+                    <input type="time" name="endtime" id="endtime" />
+                </div>
 
-          <div class="priority_buttons">
-            <label>Select Priority: </label> <br />
-            <label
-              ><input
+                <div class="priority_buttons">
+                    <label>Select Priority: </label> <br />
+                    <label><input
                 type="radio"
                 name="priority"
                 id="high"
@@ -232,15 +217,14 @@
 
           <div class="time_inputs">
             <label for="edit_starttime">Start Time:</label>
-            <input type="time" id="edit_starttime" /><br />
-            <label for="edit_endtime">End Time:</label>
-            <input type="time" id="edit_endtime" />
-          </div>
+                    <input type="time" id="edit_starttime" /><br />
+                    <label for="edit_endtime">End Time:</label>
+                    <input type="time" id="edit_endtime" />
+                </div>
 
-          <div class="priority_buttons">
-            <label>Select Priority: </label> <br />
-            <label
-              ><input
+                <div class="priority_buttons">
+                    <label>Select Priority: </label> <br />
+                    <label><input
                 type="radio"
                 name="edit_priority"
                 id="edit_high"
@@ -272,7 +256,7 @@
     <!-- Jump to New Month/Year -->
     <div class="jump_calendar">
         <label for="month_change">Go to: </label>
-        <select id="month_change">
+                    <select id="month_change">
             <option value=0>Jan</option>
             <option value=1>Feb</option>
             <option value=2>Mar</option>
@@ -286,11 +270,12 @@
             <option value=10>Nov</option>
             <option value=11>Dec</option>
         </select>
-        <select id="year_change"></select>
-    </div>
+                    <select id="year_change"></select>
+                </div>
 
-    <script src="calendar.js"></script>
-    <script src="login_logout_register.js"></script>
-    <!-- load the JavaScript file -->
-  </body>
+                <script src="calendar.js"></script>
+                <script src="login_logout_register.js"></script>
+                <!-- load the JavaScript file -->
+</body>
+
 </html>
