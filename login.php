@@ -48,3 +48,4 @@ if ($cnt == 1 && password_verify($password, $pwd_hash)) {
     ));
     exit;
 }
+?>

@@ -1,6 +1,5 @@
 /**** Login, Register, Logout Ajax ***/
 let csrf_token = "";
-let theme = "";
 //need to fetch csrf token with php to prevent it from being lost upon refresh
 fetch("csrf.php", {
         method: "POST",
@@ -46,7 +45,7 @@ function loginAjax(event) {
                 document.getElementById("calendar_user").innerHTML =
                     data.username + "'s Calendar";
                 updateCalendar();
-                showTheme(data.theme);
+                showTheme();
             } else {
                 //display the login error in html
                 document.getElementById("login_alerts").innerHTML = data.message;

@@ -31,6 +31,7 @@ function check_login() {
                 showEvents();
                 addDialog();
                 displayInfo();
+                showTheme();
             } else {
                 console.log("not logged in");
                 //display login and register panel
@@ -616,35 +617,57 @@ function displayInfo() {
 }
 
 /**********************************************************************************************/
-/*** showTheme(): displays chosen theme or default ****************************/
+/*** showTheme(): displays chosen theme or default ********************************************/
+/**********************************************************************************************/
 
-function showTheme(theme) {
-    //hidden html
-    console.log("inside show theme: " + theme);
-    if (theme == "dark") {
-        document.body.style.backgroundImage = "linear-gradient(to right, #e045db, #0cbaba)";
+function showTheme() {
+    let current_theme;
+    if (document.getElementById("theme").innerHTML != null) {
+        current_theme = document.getElementById("theme").innerHTML;
     } else {
-        // change to default
-        document.body.style.backgroundImage =
-            "linear-gradient(to left, #e045db, #0cbaba)";
+        current_theme = "default";
     }
+
+    console.log(current_theme);
+    const data = {
+        token: csrf_token,
+        theme: current_theme
+    };
+
+    fetch("gettheme.php", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: { "content-type": "application/json" },
+        })
+        .then((response) => response.json())
+        .then(function(data) {
+            if (data.success) {
+                let new_theme = data.theme;
+                console.log("inside show theme: " + new_theme);
+                if (new_theme == "dark") {
+                    document.body.style.backgroundImage = "linear-gradient(to right, #e045db, #0cbaba)";
+                } else {
+                    // change to default
+                    document.body.style.backgroundImage = "linear-gradient(to left, #e045db, #0cbaba)";
+                }
+            }
+        })
+        .catch((err) => console.error(err));
 }
 
 document.getElementById("dark_theme_btn").addEventListener("click", darkThemeChange, false);
 document.getElementById("default_theme_btn").addEventListener("click", defaultThemeChange, false);
 
 function darkThemeChange(event) {
-    console.log("insed dark change");
     //hidden html
     document.getElementById("theme").innerHTML = "dark";
-    showTheme(document.getElementById("theme").innerHTML);
+    showTheme();
 }
 
 function defaultThemeChange(event) {
-    console.log("insed default change");
     //hidden html
     document.getElementById("theme").innerHTML = "default";
-    showTheme(document.getElementById("theme").innerHTML);
+    showTheme();
 }
 
 /**********************************************************************************************/
