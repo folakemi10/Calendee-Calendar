@@ -1,12 +1,11 @@
 body {
-  background-image: linear-gradient(to right, #e045db, #0cbaba);
   font-family: "Noto Sans", sans-serif;
 }
 
 .user_name {
   text-align: center;
   color: white;
-  font-family: Georgia;
+  font-family: URW Chancery L, cursive;
   font-size: larger;
 }
 
@@ -60,6 +59,30 @@ body {
   outline: none;
 }
 
+.dark_theme_btn {
+  align-items: right;
+  float: right;
+  border-radius: 8%;
+  border: none;
+  padding: 9px 12px;
+  margin-left: 100px;
+  margin-right: 100px;
+  background-image: linear-gradient(to right, #470645, #0cbaba);
+  color: rgb(255, 255, 255);
+}
+
+.default_theme_btn {
+  align-items: right;
+  float: right;
+  border-radius: 8%;
+  border: none;
+  padding: 9px 12px;
+  margin-left: 100px;
+  margin-right: 100px;
+  background-image: linear-gradient(to right, #470645, #0cbaba);
+  color: rgb(255, 255, 255);
+}
+
 .login_btn {
   border-radius: 8%;
   border: none;
@@ -78,7 +101,7 @@ body {
   padding: 9px 12px;
   margin-left: 100px;
   margin-right: 100px;
-  background-image: linear-gradient(to right, #e045db, #0cbaba);
+  background-image: linear-gradient(to right, #470645, #0cbaba);
   color: rgb(255, 255, 255);
 }
 
@@ -177,6 +200,20 @@ div.hidden_event_date {
 }
 
 .event_box {
+  border-radius: 5px;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #0cbaba;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
+    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+  color: aliceblue;
+  height: 20px;
+  margin-bottom: 12px;
+}
+
+.locked_event_box {
   border-radius: 5px;
   text-align: center;
   padding-top: 10px;

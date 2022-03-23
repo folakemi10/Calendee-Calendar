@@ -8,7 +8,7 @@ header("Content-Type: application/json"); // Since we are sending a JSON respons
 $json_str = file_get_contents('php://input');
 //This will store the data into an associative array
 $json_obj = json_decode($json_str, true);
-
+$theme = "default";
 $new_username = $json_obj['new_username'];
 $new_password = $json_obj['new_password'];
 $confirm_password = $json_obj['confirm_password'];
@@ -70,13 +70,13 @@ if (!empty($username_err)) {
     //empty string for shared_with
     $shared_with = "";
 
-    $stmt = $mysqli->prepare("INSERT INTO users (username, password, shared_with) VALUES (?, ?, ?)");
+    $stmt = $mysqli->prepare("INSERT INTO users (username, password, shared_with, theme) VALUES (?, ?, ?, ?)");
     if (!$stmt) {
         printf("Query Prep Failed: %s\n", $mysqli->error);
         exit;
     }
 
-    $stmt->bind_param('sss', $new_username, $password_hash, $shared_with);
+    $stmt->bind_param('ssss', $new_username, $password_hash, $shared_with, $theme);
 
     $stmt->execute();
 

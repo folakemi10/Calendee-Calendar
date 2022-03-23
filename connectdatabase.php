@@ -10,6 +10,7 @@
             username varchar(50) NOT NULL,
             password varchar(255) NOT NULL,
             shared_with TEXT NOT NULL,
+            theme VARCHAR(10) NOT NULL,
             PRIMARY KEY (id, username)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -43,4 +44,3 @@ if ($mysqli->connect_errno) {
     printf("Connection Failed: %s\n", $mysqli->connect_error);
     exit;
 }
-?>

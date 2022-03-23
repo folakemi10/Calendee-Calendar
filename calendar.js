@@ -18,6 +18,10 @@ function check_login() {
         //display logout button
         document.getElementById("logout_btn").style.display = "block";
 
+        //display theme button
+        document.getElementById("dark_theme_btn").style.display = "block";
+        document.getElementById("default_theme_btn").style.display = "block";
+
         document.getElementById("calendar_user").innerHTML =
           data.username + "'s Calendar";
         console.log("showing events inn check login");
@@ -33,8 +37,15 @@ function check_login() {
         //hide logout button
         document.getElementById("logout_btn").style.display = "none";
 
+        //hide theme button
+        document.getElementById("dark_theme_btn").style.display = "none";
+        document.getElementById("default_theme_btn").style.display = "none";
+
         //hide dialog
         document.getElementById("add_event_dialog").style.display = "none";
+
+        //hide dialog
+        document.getElementById("edit_event_dialog").style.display = "none";
         //delete all events from calendar
         const event_boxes = document.querySelectorAll(".event_box");
         event_boxes.forEach((event_box) => {
@@ -613,6 +624,45 @@ function displayInfo() {
       modal: true,
     });
   });
+}
+
+/**********************************************************************************************/
+/*** showTheme(): displays chosen theme or default ****************************/
+
+function showTheme(theme) {
+  //hidden html
+  console.log("inside show theme");
+  if (theme == "dark") {
+    console.log("dark themeee");
+    document.body.style.backgroundImage =
+      "linear-gradient(to right, #e045db, #0cbaba)";
+  } else {
+    console.log("light themeee");
+    // change to default
+    document.body.style.backgroundImage =
+      "linear-gradient(to left, #e045db, #0cbaba)";
+  }
+}
+
+document
+  .getElementById("dark_theme_btn")
+  .addEventListener("click", darkThemeChange, false);
+document
+  .getElementById("default_theme_btn")
+  .addEventListener("click", defaultThemeChange, false);
+
+function darkThemeChange(event) {
+  console.log("insed dark change");
+  //hidden html
+  document.getElementById("theme").innerHTML = "dark";
+  showTheme(document.getElementById("theme").innerHTML);
+}
+
+function defaultThemeChange(event) {
+  console.log("insed default change");
+  //hidden html
+  document.getElementById("theme").innerHTML = "default";
+  showTheme(document.getElementById("theme").innerHTML);
 }
 
 /**********************************************************************************************/

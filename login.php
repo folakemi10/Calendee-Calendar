@@ -13,7 +13,8 @@ $json_obj = json_decode($json_str, true);
 $username = $json_obj['username'];
 $password = $json_obj['password'];
 
-$stmt = $mysqli->prepare("SELECT COUNT(*), username, password FROM users WHERE username=?");
+
+$stmt = $mysqli->prepare("SELECT COUNT(*), username, password, theme FROM users WHERE username=?");
 if (!$stmt) {
     printf("Query Prep Failed: %s\n", $mysqli->error);
     exit;
@@ -22,7 +23,7 @@ if (!$stmt) {
 $stmt->bind_param('s', $username);
 $stmt->execute();
 
-$stmt->bind_result($cnt, $username, $pwd_hash);
+$stmt->bind_result($cnt, $username, $pwd_hash, $theme);
 $stmt->fetch();
 
 if ($cnt == 1 && password_verify($password, $pwd_hash)) {
@@ -33,10 +34,12 @@ if ($cnt == 1 && password_verify($password, $pwd_hash)) {
         "success" => true,
         "username" => $_SESSION['username'],
         "token" => $_SESSION['token'],
-        "message" => "Login Successful"
+        "message" => "Login Successful",
+        "theme" => $theme
     ));
     exit;
 } else {
+    //plain text file array you can reference in javascript
     echo json_encode(array(
         "success" => false,
         "username" => "undefined_username",
@@ -45,4 +48,3 @@ if ($cnt == 1 && password_verify($password, $pwd_hash)) {
     ));
     exit;
 }
-?>
