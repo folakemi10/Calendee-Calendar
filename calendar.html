@@ -24,16 +24,14 @@
     />
   </head>
 
-  <body>
+  <body class="body_theme">
     <!-- calendar name for user  -->
     <p class="user_name" id="calendar_user"></p>
 
     <!-- Login & Register-->
-    <div>
+    <div class="login_register">
       <div id="login">
-        <h2>Login</h2>
         <label>
-          Username:
           <input
             type="text"
             name="username"
@@ -41,20 +39,17 @@
             placeholder="Username"
         /></label>
         <label>
-          Password:
           <input
             type="password"
             name="password"
             id="password"
             placeholder="Password"
         /></label>
-        <button id="login_btn">Log In</button>
+        <button class="login_btn" id="login_btn">Log In</button>
       </div>
       <div id="login_alerts"></div>
-      <div id="register">
-        <h2>Register</h2>
+      <div class="register" id="register">
         <label>
-          New Username:
           <input
             type="text"
             name="new_username"
@@ -62,7 +57,6 @@
             placeholder="Username"
         /></label>
         <label>
-          New Password:
           <input
             type="password"
             name="new_password"
@@ -70,14 +64,13 @@
             placeholder="Password"
         /></label>
         <label>
-          Confirm Password:
           <input
             type="password"
             name="confirm_password"
             id="confirm_password"
             placeholder="Confirm Password"
         /></label>
-        <button id="register_btn">Sign Up</button>
+        <button class="register_btn" id="register_btn">Sign Up</button>
       </div>
       <div id="register_alerts"></div>
     </div>

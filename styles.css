@@ -1,6 +1,17 @@
 body {
   font-family: "Noto Sans", sans-serif;
 }
+.body_dark_theme {
+  background-image: linear-gradient(to right, #25001d, #e940c4);
+}
+
+.body_theme {
+  background-image: linear-gradient(to right, #e045db, #0cbaba);
+}
+
+.body_light_theme {
+  background-image: linear-gradient(to right, #e045db, #0cbaba);
+}
 
 .user_name {
   text-align: center;
@@ -19,9 +30,13 @@ body {
   font-weight: bolder;
 }
 
-.login_register {
-  padding-top: 50px;
+.register {
   padding-bottom: 20px;
+}
+
+.login_register {
+  padding-top: 45px;
+  padding-bottom: 10px;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -7,10 +7,10 @@ header("Content-Type: application/json"); // Since we are sending a JSON respons
 //Because you are posting the data via fetch(), php has to retrieve it elsewhere.
 $json_str = file_get_contents('php://input');
 //This will store the data into an associative array
-$json_obj = htmlentities(json_decode($json_str, true));
+$json_obj = json_decode($json_str, true);
 $theme = "default";
-$new_username = htmlentities($json_obj['new_username']);
-$new_password = htmlentities($json_obj['new_password']);
+$new_username =  htmlentities($json_obj['new_username']);
+$new_password =  htmlentities($json_obj['new_password']);
 $confirm_password = htmlentities($json_obj['confirm_password']);
 
 //get new username
