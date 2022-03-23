@@ -46,6 +46,7 @@ function check_login() {
 
         //hide dialog
         document.getElementById("edit_event_dialog").style.display = "none";
+
         //delete all events from calendar
         const event_boxes = document.querySelectorAll(".event_box");
         event_boxes.forEach((event_box) => {
