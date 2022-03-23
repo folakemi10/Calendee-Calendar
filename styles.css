@@ -1,81 +1,80 @@
 body {
-  font-family: "Noto Sans", sans-serif;
-}
-.body_dark_theme {
-  background-image: linear-gradient(to right, #25001d, #e940c4);
+    font-family: "Noto Sans", sans-serif;
+    /*default light theme*/
+    background-image: linear-gradient(to right, #74d6d6, #db94d9);
+    color: black;
 }
 
-.body_light_theme {
-  background-image: linear-gradient(to right, #e045db, #0cbaba);
+
+/*dark theme*/
+
+.dark {
+    background-image: linear-gradient(to right, #581b91, #a31083);
+    color: aliceblue;
 }
 
 .user_name {
-  text-align: center;
-  color: rgb(16, 52, 61);
-  font-family: Georgia, "Times New Roman", Times, serif;
-  font-weight: 900;
-  font-size: larger;
+    text-align: center;
+    font-family: "Noto Sans", sans-serif;
+    font-weight: 900;
+    font-size: larger;
 }
 
 .calendar_header {
-  /* //margin: auto; */
-  width: 100%;
-  color: #25001d;
-  align-self: center;
-  text-align: center;
-  font-size: large;
-  font-weight: bolder;
+    /* //margin: auto; */
+    width: 100%;
+    align-self: center;
+    text-align: center;
+    font-size: large;
+    font-weight: bolder;
 }
 
 .register {
-  padding-bottom: 20px;
+    padding-bottom: 20px;
 }
 
 .login_register {
-  padding-top: 45px;
-  padding-bottom: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  font-family: "Montserrat", sans-serif;
-  color: white;
-  /* margin: -20px 0 50px; */
+    padding-top: 45px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Noto Sans", sans-serif;
 }
 
 .right_btn {
-  margin-left: 400px;
-  margin-right: 10px;
-  color: rgb(209, 209, 209);
-  font-size: large;
-  background-color: Transparent;
-  background-repeat: no-repeat;
-  border: none;
-  cursor: pointer;
-  overflow: hidden;
-  outline: none;
-  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
-    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
-    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+    margin-left: 400px;
+    margin-right: 10px;
+    color: rgb(209, 209, 209);
+    font-size: large;
+    background-color: white;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+    border-radius: 5px;
 }
 
 .left_btn {
-  margin-left: 10px;
-  margin-right: 400px;
-  color: rgb(209, 209, 209);
-  font-size: large;
-  /* width: 50%;
+    margin-left: 10px;
+    margin-right: 400px;
+    color: rgb(209, 209, 209);
+    font-size: large;
+    /* width: 50%;
   height: 40px; */
-  background-color: Transparent;
-  background-repeat: no-repeat;
-  border: none;
-  cursor: pointer;
-  overflow: hidden;
-  outline: none;
-  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
-    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
-    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+    background-color: white;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+    border-radius: 5px;
 }
+
 
 /* .dark_theme_btn {
   align-items: right;
@@ -112,207 +111,213 @@ body {
   text-align: center;
 } */
 
+
 /* toggle css inspired by https://websolutionstuff.com/post/how-to-toggle-dark-and-light-mode-using-jquery#:~:text=%20How%20To%20Toggle%20Dark%20and%20Light%20Mode,Light%20Mode%20using%20Javascript%20or%20jQuery.%20More%20?msclkid=3ef06316aa9b11ecbb1b47c398ec2e96 */
 
 .theme-switch-wrapper {
-  display: flex;
-  align-items: center;
-  float: right;
+    display: flex;
+    align-items: center;
+    float: right;
 }
+
 .theme-switch {
-  display: inline-block;
-  height: 34px;
-  position: relative;
-  width: 60px;
-  text-align: right;
+    display: inline-block;
+    height: 34px;
+    position: relative;
+    width: 60px;
+    text-align: right;
 }
+
 .theme-switch input {
-  display: none;
+    display: none;
 }
+
 .slider {
-  background-color: rgb(119, 229, 233);
-  bottom: 0;
-  cursor: pointer;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  transition: 0.4s;
+    background-color: rgb(119, 229, 233);
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: 0.4s;
 }
+
 .slider:before {
-  background-color: #fff;
-  bottom: 4px;
-  content: "";
-  height: 26px;
-  left: 4px;
-  position: absolute;
-  transition: 0.4s;
-  width: 26px;
+    background-color: #fff;
+    bottom: 4px;
+    content: "";
+    height: 26px;
+    left: 4px;
+    position: absolute;
+    transition: 0.4s;
+    width: 26px;
 }
-input:checked + .slider {
-  background-color: #4b2e8d;
+
+input:checked+.slider {
+    background-color: #4d28a5;
 }
-input:checked + .slider:before {
-  transform: translateX(26px);
+
+input:checked+.slider:before {
+    transform: translateX(26px);
 }
+
 .slider.round {
-  border-radius: 34px;
+    border-radius: 34px;
 }
+
 .slider.round:before {
-  border-radius: 50%;
+    border-radius: 50%;
 }
 
 .login_btn {
-  border-radius: 8%;
-  border: none;
-  padding: 9px 12px;
-  /* margin-left: 200px;
+    border-radius: 8%;
+    border: none;
+    padding: 9px 12px;
+    /* margin-left: 200px;
   margin-right: 100px; */
-  background-image: linear-gradient(to right, #e045db, #0cbaba);
-  color: rgb(255, 255, 255);
+    background-image: linear-gradient(to right, #e045db, #0cbaba);
+    color: rgb(255, 255, 255);
 }
 
 .logout_btn {
-  align-items: right;
-  float: right;
-  border-radius: 8%;
-  border: none;
-  padding: 9px 12px;
-  margin-left: 100px;
-  margin-right: 100px;
-  background-image: linear-gradient(to right, #470645, #0cbaba);
-  color: rgb(255, 255, 255);
+    align-items: right;
+    float: right;
+    border-radius: 8%;
+    border: none;
+    padding: 9px 12px;
+    margin-left: 100px;
+    margin-right: 100px;
+    background-image: linear-gradient(to right, #770d74, #2d5ec7);
+    color: rgb(255, 255, 255);
 }
 
 .register_btn {
-  border-radius: 8%;
-  border: none;
-  padding: 9px 12px;
-  /* margin-left: 90px;
+    border-radius: 8%;
+    border: none;
+    padding: 9px 12px;
+    /* margin-left: 90px;
   margin-right: 100px; */
-  background-image: linear-gradient(to right, #e045db, #0cbaba);
-  color: rgb(255, 255, 255);
+    background-image: linear-gradient(to right, #e045db, #0cbaba);
+    color: rgb(255, 255, 255);
 }
 
 .share_btn {
-  border-radius: 8%;
-  border: none;
-  padding: 9px 12px;
-  margin-left: 100px;
-  margin-right: 100px;
-  background-image: linear-gradient(to right, #e045db, #0cbaba);
-  color: rgb(255, 255, 255);
+    border-radius: 8%;
+    border: none;
+    padding: 9px 12px;
+    margin-left: 100px;
+    margin-right: 100px;
+    background-image: linear-gradient(to right, #e045db, #0cbaba);
+    color: rgb(255, 255, 255);
 }
 
 .calendar_table {
-  width: 70%;
-  box-shadow: rgb(0, 0, 0);
-  background-color: rgb(243, 243, 243);
-  border-radius: 1%;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
-    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  /* padding-bottom: 50px; */
-  height: 70;
+    width: 70%;
+    box-shadow: rgb(0, 0, 0);
+    background-color: rgb(243, 243, 243);
+    border-radius: 1%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    height: 70;
 }
 
 .days_header th {
-  border-collapse: collapse;
-  padding: 10px;
-  color: #25001d;
+    color: black;
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 10px;
 }
 
 .calendar_body td {
-  padding: 5px;
-  padding-bottom: 80px;
-  text-align: center;
-  vertical-align: top;
-  /* height: 2px;
+    padding: 5px;
+    padding-bottom: 80px;
+    text-align: center;
+    vertical-align: top;
+    border: 1px solid black;
+    border-collapse: collapse;
+    /* height: 2px;
   overflow-x: hidden;
   overflow-y: auto;
   background-color: rgb(52, 78, 100); */
 }
+
 .day_cell {
-  max-height: 7px;
-  overflow: auto;
-  width: 6px;
+    max-height: 7px;
+    overflow: auto;
+    width: 6px;
 }
 
 .calendar_body th {
-  padding: 5px;
-  /*padding-bottom: 80px; */
-  text-align: center;
-  vertical-align: top;
-  /* Set the height of table body
+    padding: 5px;
+    /*padding-bottom: 80px; */
+    text-align: center;
+    vertical-align: top;
+    /* Set the height of table body
   height: 50px;
 
   /* Set vertical scroll */
-  /* Hide the horizontal scroll */
-  /* overflow-x: hidden; */
+    /* Hide the horizontal scroll */
+    /* overflow-x: hidden; */
 }
 
 .day_number {
-  color: #0cbaba;
+    color: #0cbaba;
 }
 
 input.text {
-  margin-bottom: 12px;
-  width: 95%;
-  padding: 0.4em;
+    margin-bottom: 12px;
+    width: 95%;
+    padding: 0.4em;
 }
 
 fieldset {
-  padding: 0;
-  border: 0;
-  margin-top: 25px;
+    padding: 0;
+    border: 0;
+    margin-top: 25px;
 }
 
 h1 {
-  font-size: 1.2em;
-  margin: 0.6em 0;
+    font-size: 1.2em;
+    margin: 0.6em 0;
 }
 
 div.hidden_event_date {
-  display: none;
+    display: none;
 }
 
 .event_box {
-  border-radius: 5px;
-  text-align: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  background-color: #0cbaba;
-  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
-    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
-    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
-  color: aliceblue;
-  height: 20px;
-  margin-bottom: 12px;
+    border-radius: 5px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #0cbaba;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+    color: aliceblue;
+    height: 20px;
+    margin-bottom: 12px;
 }
 
 .locked_event_box {
-  border-radius: 5px;
-  text-align: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  background-color: #0cbaba;
-  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
-    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
-    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
-  color: aliceblue;
-  height: 20px;
-  margin-bottom: 12px;
+    border-radius: 5px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #cfcfcf;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+    color: rgb(97, 97, 97);
+    height: 20px;
+    margin-bottom: 12px;
 }
 
 .jump_calendar {
-  position: absolute;
-  width: 120%;
-  color: white;
-  align-self: center;
-  text-align: center;
-  font-size: large;
-  font-weight: bolder;
+    position: absolute;
+    width: 120%;
+    align-self: center;
+    text-align: center;
+    font-size: large;
+    font-weight: bolder;
 }
