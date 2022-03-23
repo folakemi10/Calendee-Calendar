@@ -21,4 +21,5 @@ Registering a new username & password is also available.
 ## Creative Portion
 1) can tag an event's priority (high, medium, low, or none)
 2) can share an event with user - this is available after a user creates an event and can access it through the "Event Details" dialog window
-3) 
+3) can change between default and dark theme
+4) can jump to a certain month/year in the calendar
