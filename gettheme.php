@@ -10,9 +10,9 @@ $json_str = file_get_contents('php://input');
 $json_obj = json_decode($json_str, true);
 
 //Variables can be accessed as such:
-$username = $_SESSION["username"];
-$token = $json_obj['token'];
-$new_theme = $json_obj['theme'];
+$username = htmlentities($_SESSION["username"]);
+$token = htmlentities($json_obj['token']);
+$new_theme = htmlentities($json_obj['theme']);
 
 if (!hash_equals($_SESSION['token'], $token)) {
   echo json_encode(array(
@@ -62,4 +62,3 @@ echo json_encode(array(
     "theme" => $theme
 ));
 exit;
-?>

@@ -24,7 +24,14 @@
     />
   </head>
 
-  <body class="body_theme">
+  <body>
+    <!-- /* toggle inspired by https://websolutionstuff.com/post/how-to-toggle-dark-and-light-mode-using-jquery#:~:text=%20How%20To%20Toggle%20Dark%20and%20Light%20Mode,Light%20Mode%20using%20Javascript%20or%20jQuery.%20More%20?msclkid=3ef06316aa9b11ecbb1b47c398ec2e96 */ -->
+    <div class="theme-switch-wrapper">
+      <label class="theme-switch" for="checkbox">
+        <input type="checkbox" id="checkbox" />
+        <div class="slider round"></div>
+      </label>
+    </div>
     <!-- calendar name for user  -->
     <p class="user_name" id="calendar_user"></p>
 
@@ -81,23 +88,42 @@
 
     <!-- <div id="result"></div> -->
 
-    <div>
+    <!-- <div>
       <button class="dark_theme_btn" id="dark_theme_btn">Dark Theme</button>
     </div>
 
     <div>
       <button class="default_theme_btn" id="default_theme_btn">
         Default Theme
-      </button>
-    </div>
+      </button> -->
+    <!-- </div> -->
 
-    <div id="theme"></div>
+    <!-- <div id="theme"></div> -->
 
     <!-- <div id="result"></div> -->
 
     <!-- Calendar Structure -->
     <!-- Header: Current Month and Year, Month Navigation -->
     <div class="calendar_header">
+      <!-- Jump to New Month/Year -->
+      <div class="jump_calendar">
+        <label for="month_change">Go to: </label>
+        <select id="month_change">
+          <option value="0">Jan</option>
+          <option value="1">Feb</option>
+          <option value="2">Mar</option>
+          <option value="3">Apr</option>
+          <option value="4">May</option>
+          <option value="5">Jun</option>
+          <option value="6">Jul</option>
+          <option value="7">Aug</option>
+          <option value="8">Sep</option>
+          <option value="9">Oct</option>
+          <option value="10">Nov</option>
+          <option value="11">Dec</option>
+        </select>
+        <select id="year_change"></select>
+      </div>
       <p id="month_year"></p>
       <button type="button" id="prev_month_btn" class="left_btn">
         &#8249;
@@ -252,26 +278,6 @@
           </div>
         </fieldset>
       </form>
-    </div>
-
-    <!-- Jump to New Month/Year -->
-    <div class="jump_calendar">
-      <label for="month_change">Go to: </label>
-      <select id="month_change">
-        <option value="0">Jan</option>
-        <option value="1">Feb</option>
-        <option value="2">Mar</option>
-        <option value="3">Apr</option>
-        <option value="4">May</option>
-        <option value="5">Jun</option>
-        <option value="6">Jul</option>
-        <option value="7">Aug</option>
-        <option value="8">Sep</option>
-        <option value="9">Oct</option>
-        <option value="10">Nov</option>
-        <option value="11">Dec</option>
-      </select>
-      <select id="year_change"></select>
     </div>
 
     <script src="calendar.js"></script>
